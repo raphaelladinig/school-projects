@@ -1,0 +1,5 @@
+default:
+  just --list
+
+start:
+  python app.py

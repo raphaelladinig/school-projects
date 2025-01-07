@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#questionsTable').DataTable();
+        });
+    </script>
+</head>
+<body>
+    <h1>Questions</h1>
+    <table id="questionsTable" class="display">
+        <thead>
+            <tr>
+                <th>Level</th>
+                <th>Question</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in questions %}
+            <tr>
+                <td>{{ q.level }}</td>
+                <td>{{ q.text }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p/>
+    <a href="/">Go back</a>
+</body>
+</html>
