@@ -1,7 +1,23 @@
-# General
-.direnv
-.env
+# general
+*.direnv
+*.env
+*.log
 
-# Python
+# python
 venv
 __pycache__
+
+# csharp & aspnet
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bin/
+obj/
+*.nupkg
+packages/
+*.snupkg
+App_Data/
+*.db
+*.mdf
+*.ldf
