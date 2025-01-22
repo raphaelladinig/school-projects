@@ -7,7 +7,7 @@ upload:
 test:
     pio test
 
-compile:
+build:
 	pio run
 
 compileCommands:
