@@ -1,0 +1,5 @@
+.pio
+.vscode
+.direnv
+.cache
+compile_commands.json
