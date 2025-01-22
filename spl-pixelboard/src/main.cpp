@@ -63,4 +63,6 @@ void loop() {
     setLed(7, 31, CRGB::Yellow, leds);
     leds[0] = CRGB::Green;
     FastLED.show();
+
+    //still doesnt work kp wieso
 }
