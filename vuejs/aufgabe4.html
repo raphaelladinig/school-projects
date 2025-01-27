@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="toggleNachricht">
+        {{ zeigeNachricht ? 'Verstecke Nachricht' : 'Zeige Nachricht' }}
+      </button>
+
+      <p v-if="zeigeNachricht">Das ist meine Nachricht</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          zeigeNachricht: false,
+        },
+        methods: {
+          toggleNachricht() {
+            this.zeigeNachricht = !this.zeigeNachricht;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

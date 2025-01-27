@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+      .rot {
+        background-color: red;
+        color: white;
+        padding: 20px;
+      }
+      .blau {
+        background-color: blue;
+        color: white;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div v-bind:class="{ rot: !istBlau, blau: istBlau }">
+        {{ istBlau ? 'Ich bin Blau' : 'Ich bin Rot' }}
+      </div>
+
+      <input type="checkbox" v-model="istBlau" /> Blau anzeigen
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          istBlau: false,
+        },
+      });
+    </script>
+  </body>
+</html>

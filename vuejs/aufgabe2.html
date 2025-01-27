@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="suchtext" />
+
+      <ul>
+        <li
+          v-if="film.toLowerCase().includes(suchtext.toLowerCase())"
+          v-for="film in filme"
+          :key="film"
+        >
+          {{ film }}
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          filme: ["The Diddler", "I am Leg", "sharknado", "jerkmate legends", "musikbezirksilz behind the scenes"],
+          suchtext: "",
+        },
+      });
+    </script>
+  </body>
+</html>
