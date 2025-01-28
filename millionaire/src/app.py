@@ -92,7 +92,6 @@ def game(answer_index=None):
             <p/>
             <a href="/">Go back</a>
         """
-    print(question)
     session["correct_index"] = question.correct_index
 
     return render_template_string(
