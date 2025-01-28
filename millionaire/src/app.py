@@ -1,7 +1,11 @@
+import os
 from flask import Flask, render_template_string, session, render_template
 from flask_restful import Api
-from questions import get_rand_question, read_questions
-from api import (
+from db import Base, engine
+from questions import (
+    get_questions,
+    get_rand_question,
+    read_questions,
     QuestionResource,
     RandomQuestionResource,
     AllQuestionsResource,
@@ -12,7 +16,14 @@ from api import (
 app = Flask(__name__)
 app.secret_key = "secret"
 api = Api(app)
-questions = read_questions("millionaire.txt")
+
+if not os.path.exists("questions.db"):
+    Base.metadata.create_all(engine)
+    print("Creating Database...")
+    read_questions("millionaire.txt")
+
+
+questions = get_questions()
 
 
 @app.route("/")
@@ -33,13 +44,17 @@ def search():
 @app.route("/game/<int:answer_index>")
 def game(answer_index=None):
     current_level = session.get("current_level", 0)
-    correct_index = session.get("correct_index", None)
+    correct_index = session.get("correct_index", 0)
 
     if answer_index is None:
         current_level = 0
         correct_index = -1
 
-    if correct_index is not -1:
+    if correct_index != -1:
+        print(f"Answer Index: {answer_index}, Correct Index: {correct_index}")
+        print(f"Answer Index: {answer_index} (type: {type(answer_index)})")
+        print(f"Correct Index: {correct_index} (type: {type(correct_index)})")
+
         if answer_index == correct_index:
             current_level += 1
             session["current_level"] = current_level
@@ -56,7 +71,8 @@ def game(answer_index=None):
                     <p/>
                     <a href="/">Go back</a>
                 """
-        elif current_level != 0:
+        else:
+            print("incorrect")
             current_level = 0
             session["current_level"] = current_level
             return """
@@ -67,7 +83,7 @@ def game(answer_index=None):
                 <a href="/">Go back</a>
             """
 
-    question = get_rand_question(current_level, questions)
+    question = get_rand_question(current_level)
     if question is None:
         return """
             No more questions available for this level.
@@ -76,6 +92,7 @@ def game(answer_index=None):
             <p/>
             <a href="/">Go back</a>
         """
+    print(question)
     session["correct_index"] = question.correct_index
 
     return render_template_string(

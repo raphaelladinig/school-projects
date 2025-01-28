@@ -1,4 +1,3 @@
-#Difficulty	Question	Correct Answer	Answer #2	Answer #3	Answer #4	Background information
 0	Who was the first President of the United States?	George Washington	Abraham Lincoln	William J. Clinton	Thomas Jefferson	
 0	Which is not a color of the United States flag?	Black	Red	White	Blue	
 0	"A ""ten-speed"" belongs to what category of vehicle?"	Bicycle	Automobile	Roller skates	Go-cart	
