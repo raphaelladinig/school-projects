@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <h1>To-Do Liste</h1>
+
+      <input
+        v-model="newTodo"
+        @keyup.enter="addTodo"
+        placeholder="Neue Aufgabe hinzufügen"
+      />
+      <button @click="addTodo">Hinzufügen</button>
+
+      <ul>
+        <li
+          v-for="(todo, index) in todos"
+          :key="index"
+          :class="{ completed: todo.completed }"
+          @click="toggleComplete(index)"
+        >
+          {{ todo.text }}
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          newTodo: "",
+          todos: [],
+        },
+        methods: {
+          addTodo() {
+            if (this.newTodo.trim()) {
+              this.todos.push({
+                text: this.newTodo,
+                completed: false,
+              });
+              this.newTodo = "";
+            }
+          },
+          toggleComplete(index) {
+            this.todos[index].completed = !this.todos[index].completed;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

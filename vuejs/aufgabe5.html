@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formular mit Länderauswahl</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <form @submit.prevent="submitForm">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" id="name" v-model="name" required />
+        </div>
+
+        <div>
+          <label for="country">Land:</label>
+          <select id="country" v-model="selectedCountry" required>
+            <option value="">Bitte wählen</option>
+            <option value="DE">DE</option>
+            <option value="AT">AT</option>
+            <option value="CH">CH</option>
+          </select>
+        </div>
+
+        <div>
+          <label>
+            <input type="checkbox" v-model="isDataCorrect" />
+            Daten korrekt
+          </label>
+        </div>
+      </form>
+
+      <div v-if="isDataCorrect">
+        <h1>daten</h1>
+        <p>Name: {{ name }}</p>
+        <p>Land: {{ selectedCountry }}</p>
+      </div>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          name: "",
+          selectedCountry: "",
+          isDataCorrect: false,
+        },
+      });
+    </script>
+  </body>
+</html>
