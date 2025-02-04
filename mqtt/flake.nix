@@ -5,7 +5,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       ...
     }:
@@ -21,10 +20,6 @@
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = [
-            self.overlays.additions
-            self.overlays.modifications
-          ];
         }
       );
     in

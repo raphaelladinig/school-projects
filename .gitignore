@@ -21,3 +21,6 @@ App_Data/
 *.db
 *.mdf
 *.ldf
+
+# node
+node_modules/

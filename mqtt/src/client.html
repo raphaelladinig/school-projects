@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MQTT Client</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #messages {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        height: 200px;
+        overflow-y: scroll;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MQTT Client</h1>
+    <div>
+      <button id="connectButton">Connect to MQTT Broker</button>
+    </div>
+    <div id="messages"></div>
+
+    <script>
+      const brokerUrl = "ws://127.0.0.1:9001";
+      const client = mqtt.connect(brokerUrl);
+
+      const messagesDiv = document.getElementById("messages");
+      const connectButton = document.getElementById("connectButton");
+
+      connectButton.addEventListener("click", () => {
+        client.on("connect", () => {
+          console.log("Connected to MQTT broker");
+          client.subscribe("sensor/temperature", (err) => {
+            if (!err) {
+              console.log("Subscribed to topic: sensor/temperature");
+            } else {
+              console.error("Subscription error:", err);
+            }
+          });
+        });
+
+        client.on("message", (topic, message) => {
+          const msg = `Received message: ${message.toString()} on topic: ${topic}`;
+          console.log(msg);
+          messagesDiv.innerHTML += `<div>${msg}</div>`;
+        });
+
+        client.on("error", (err) => {
+          console.error("Connection error:", err);
+        });
+      });
+    </script>
+  </body>
+</html>
