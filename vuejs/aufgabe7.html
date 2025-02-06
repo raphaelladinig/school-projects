@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <title>Mathe-Generator</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Mathe-Generator</h2>
+      <p>Zahl 1: {{ zahl1 }}</p>
+      <p>Zahl 2: {{ zahl2 }}</p>
+      <p>
+        Ihre Summe:
+        <input type="number" v-model="eingabe" />
+      </p>
+      <button v-on:click="pruefen">Prüfen</button>
+      <p>{{ ergebnis }}</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          zahl1: Math.floor(Math.random() * 10) + 1,
+          zahl2: Math.floor(Math.random() * 10) + 1,
+          eingabe: "",
+          ergebnis: "",
+        },
+        methods: {
+          pruefen() {
+            const summe = this.zahl1 + this.zahl2;
+            this.ergebnis =
+              parseInt(this.eingabe) === summe ? "Richtig!" : "Falsch!";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
