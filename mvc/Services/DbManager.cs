@@ -9,10 +9,7 @@ namespace mvc.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseMySql("Server=localhost;Database=mvc;User=root;");
-            }
+          // TODO: kp wie des auf linux is
         }
     }
 }
