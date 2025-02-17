@@ -1,0 +1,47 @@
+@model mvc.Models.User
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<form method="post" asp-controller="User" asp-action="Registration">
+
+    <table>
+        <thead>
+        <tr>
+            <td colspan="3">Registration Form</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>First Name:</td>
+            <td><input type="text" asp-for="Firstname"/></td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td><input type="text" asp-for="Lastname"/></td>
+            <td><span asp-validation-for="Lastname"></span></td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" asp-for="Username"/></td>
+        </tr>
+        <tr>
+            <td>Birthdate:</td>
+            <td><input type="date" asp-for="Birthdate"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" class="" asp-for="Password"/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Register"/>
+                <input type="reset" value="Reset"/>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</form>
+
+

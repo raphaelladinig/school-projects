@@ -1,0 +1,11 @@
+default:
+  just --list
+
+dev:
+  dotnet watch
+
+add-migration name:
+  dotnet ef migrations add {{name}}
+
+update-db:
+  dotnet ef database update
