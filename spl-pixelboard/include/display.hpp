@@ -4,6 +4,6 @@
 #include <FastLED.h>
 
 int getLed(int x, int y);
-void setLed(int x, int y, CRGB color, CRGB leds[]);
+void setLed(int x, int y, CRGB color, CRGB *leds1, CRGB *leds2);
 
 #endif
