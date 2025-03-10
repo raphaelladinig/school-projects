@@ -1,17 +1,14 @@
 <template>
   <div id="app">
-    <h1>{{ message }}</h1>
+    <header>
+      <nav>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/entries">Einträge</router-link> |
+        <router-link to="/statistics">Statistiken</router-link>
+      </nav>
+    </header>
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      message: "Hello World!",
-    };
-  },
-};
-</script>
-
-<style></style>
