@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace mvc.Models
 {
     public class Util
@@ -31,16 +33,7 @@ namespace mvc.Models
             return true;
         }
 
-        public static bool ValidPassword(
-            string input,
-            int minLength = 0,
-            int maxLength = 0,
-            int minUppercase = 0,
-            int mindLowercase = 0,
-            int minCountDigits = 0,
-            string specialChars = "",
-            int minSpecialChars = 0
-        )
+        public static bool ValidPassword(string input, int minLength = 0, int maxLength = 0)
         {
             if (input == null)
             {
@@ -57,38 +50,13 @@ namespace mvc.Models
                 return false;
             }
 
-            if (input.Any(char.IsUpper) && input.Any(char.IsLower))
-            {
-                int countU = input.Count(c => char.IsUpper(c));
-                int countL = input.Count(c => char.IsLower(c));
-                if (minUppercase > 0 && countU < minUppercase)
-                {
-                    return false;
-                }
-
-                if (mindLowercase > 0 && countL < mindLowercase)
-                {
-                    return false;
-                }
-            }
-
-            if (minCountDigits > 0 && input.Count(char.IsDigit) < minCountDigits)
-            {
-                return false;
-            }
-
-            if (input.Contains(specialChars))
-            {
-                if (
-                    minSpecialChars > 0
-                    && input.Count(c => specialChars.Contains(c)) < minSpecialChars
-                )
-                {
-                    return false;
-                }
-            }
-
             return true;
+        }
+
+        public static string HashPassword(User user)
+        {
+            var passwordHasher = new PasswordHasher<User>();
+            return passwordHasher.HashPassword(user, user.Password);
         }
     }
 }

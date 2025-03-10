@@ -9,7 +9,10 @@ namespace mvc.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-          // TODO: kp wie des auf linux is
+            optionsBuilder.UseMySql(
+                "server=localhost;database=swp;user=root;password=root",
+                new MySqlServerVersion(new Version(8, 0, 21))
+            );
         }
     }
 }

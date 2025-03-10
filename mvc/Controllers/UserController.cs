@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using mvc.Models;
+using mvc.Services;
 
 namespace mvc.Controllers
 {
@@ -18,6 +19,11 @@ namespace mvc.Controllers
                 return RedirectToAction("Registration");
             }
 
+            if (!Util.ValidString(user.Firstname, 2))
+            {
+                ModelState.AddModelError("Firstname", "Firstname is too short");
+            }
+
             if (!Util.ValidString(user.Lastname, 2))
             {
                 ModelState.AddModelError("Lastname", "Lastname is too short");
@@ -28,14 +34,42 @@ namespace mvc.Controllers
                 ModelState.AddModelError("Date", "Date is in the future");
             }
 
-            if (!Util.ValidPassword(user.Password, 8, 1, 1, 1, 2, "!@#$%&/()=?"))
+            if (!Util.ValidPassword(user.Password, 2, 8))
             {
-                ModelState.AddModelError("Password", "Password is too short");
+                ModelState.AddModelError("Password", "Password is wrong");
             }
 
             if (ModelState.IsValid)
             {
-                //in DB eintragen
+                using (DbManager db = new DbManager())
+                {
+                    user.Password = Util.HashPassword(user);
+                    db.Users.Add(user);
+                    try
+                    {
+                        await db.SaveChangesAsync();
+                        return View(
+                            "Message",
+                            new Message()
+                            {
+                                Title = "Erfolg",
+                                Text = "Der User wurde erfolgreich angelegt",
+                            }
+                        );
+                    }
+                    catch
+                    {
+                        return View(
+                            "Message",
+                            new Message()
+                            {
+                                Title = "Fehler",
+                                Text = "Der User konnte nicht angelegt werden",
+                            }
+                        );
+                    }
+                }
+                ;
             }
 
             return View(user);
