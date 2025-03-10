@@ -80,10 +80,11 @@ namespace mvc.Controllers
 
             return View(user);
         }
-
-        public IActionResult Login()
+        
+        [HttpPost]
+        public async Task<IActionResult> Login(User user)
         {
-            return View();
+            return View(user);
         }
     }
 }

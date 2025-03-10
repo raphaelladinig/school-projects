@@ -1,5 +1,32 @@
+@model mvc.Models.User
 @{
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
+<form method="post" asp-controller="User" asp-action="Login">
+    <table>
+        <thead>
+        <tr>
+            <td colspan="3">Login Form</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" asp-for="Username"/></td>
+            <td><span asp-validation-for="Username"></span></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type="password" class="" asp-for="Password"/></td>
+            <td><span asp-validation-for="Password"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Login"/>
+                <input type="reset" value="Reset"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
