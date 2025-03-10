@@ -8,10 +8,8 @@ namespace mvc
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllersWithViews();
-
             builder.Services.AddDbContext<DbManager>();
-            // builder.Services.AddTransient<PasswordHasher<string>>();
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 

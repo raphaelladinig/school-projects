@@ -10,7 +10,6 @@ namespace mvc.Models
             {
                 return false;
             }
-
             if (minLength > 0 && input.Length < minLength)
             {
                 return false;
@@ -53,10 +52,9 @@ namespace mvc.Models
             return true;
         }
 
-        public static string HashPassword(User user)
+        public static string HashPassword(PasswordHasher<string> passwordHasher, string password)
         {
-            var passwordHasher = new PasswordHasher<User>();
-            return passwordHasher.HashPassword(user, user.Password);
+            return passwordHasher.HashPassword(string.Empty, password);
         }
     }
 }

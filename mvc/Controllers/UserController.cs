@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using mvc.Models;
 using mvc.Services;
@@ -6,6 +7,14 @@ namespace mvc.Controllers
 {
     public class UserController : Controller
     {
+        private readonly DbManager _dbManager;
+        private readonly PasswordHasher<string> passwordHasher = new PasswordHasher<string>();
+
+        public UserController(DbManager dbManager)
+        {
+            _dbManager = dbManager;
+        }
+
         public IActionResult Registration()
         {
             return View();
@@ -41,33 +50,30 @@ namespace mvc.Controllers
 
             if (ModelState.IsValid)
             {
-                using (DbManager db = new DbManager())
+                user.Password = Util.HashPassword(passwordHasher, user.Password);
+                _dbManager.Users.Add(user);
+                try
                 {
-                    user.Password = Util.HashPassword(user);
-                    db.Users.Add(user);
-                    try
-                    {
-                        await db.SaveChangesAsync();
-                        return View(
-                            "Message",
-                            new Message()
-                            {
-                                Title = "Erfolg",
-                                Text = "Der User wurde erfolgreich angelegt",
-                            }
-                        );
-                    }
-                    catch
-                    {
-                        return View(
-                            "Message",
-                            new Message()
-                            {
-                                Title = "Fehler",
-                                Text = "Der User konnte nicht angelegt werden",
-                            }
-                        );
-                    }
+                    await _dbManager.SaveChangesAsync();
+                    return View(
+                        "Message",
+                        new Message()
+                        {
+                            Title = "Erfolg",
+                            Text = "Der User wurde erfolgreich angelegt",
+                        }
+                    );
+                }
+                catch
+                {
+                    return View(
+                        "Message",
+                        new Message()
+                        {
+                            Title = "Fehler",
+                            Text = "Der User konnte nicht angelegt werden",
+                        }
+                    );
                 }
                 ;
             }
