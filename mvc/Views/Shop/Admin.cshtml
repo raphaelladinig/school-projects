@@ -3,31 +3,31 @@
 }
 
 @model mvc.Models.Article
-<form class="form-horizontal" method="post" asp-controller="Shop" asp-action="AddArticle">
+<form class="form-horizontal rainbow-background" method="post" asp-controller="Shop" asp-action="AddArticle">
     <table class="table table-bordered">
         <thead>
         <tr>
-            <td colspan="3" class="text-center">Article Form</td>
+            <td colspan="3" class="text-center rainbow-text">Article Form</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>Name:</td>
+            <td class="rainbow-text">Name:</td>
             <td><input type="text" class="form-control" asp-for="Name"/></td>
             <td><span class="text-danger" asp-validation-for="Name"></span></td>
         </tr>
         <tr>
-            <td>Beschreibung:</td>
+            <td class="rainbow-text">Beschreibung:</td>
             <td><input type="text" class="form-control" asp-for="Description"/></td>
             <td><span class="text-danger" asp-validation-for="Description"></span></td>
         </tr>
         <tr>
-            <td>Preis:</td>
+            <td class="rainbow-text">Preis:</td>
             <td><input type="number" class="form-control" asp-for="Price"/></td>
             <td><span class="text-danger" asp-validation-for="Price"></span></td>
         </tr>
         <tr>
-            <td>Typ:</td>
+            <td class="rainbow-text">Typ:</td>
             <td>
                 <select class="form-control" asp-for="ArticleType" asp-items="Html.GetEnumSelectList<mvc.Models.ArticleType>()"></select>
             </td>

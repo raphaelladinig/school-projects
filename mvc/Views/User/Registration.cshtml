@@ -3,43 +3,43 @@
 }
 
 @model mvc.Models.User
-<form class="form-horizontal" method="post" asp-controller="User" asp-action="Registration">
+<form class="form-horizontal rainbow-background" method="post" asp-controller="User" asp-action="Registration">
     <table class="table table-bordered">
         <thead>
         <tr>
-            <td colspan="3" class="text-center">Registration Form</td>
+            <td colspan="3" class="text-center rainbow-text">Registration Form</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>First Name:</td>
+            <td class="rainbow-text">First Name:</td>
             <td><input type="text" class="form-control" asp-for="Firstname"/></td>
             <td><span class="text-danger" asp-validation-for="Firstname"></span></td>
         </tr>
         <tr>
-            <td>Last Name:</td>
+            <td class="rainbow-text">Last Name:</td>
             <td><input type="text" class="form-control" asp-for="Lastname"/></td>
             <td><span class="text-danger" asp-validation-for="Lastname"></span></td>
         </tr>
         <tr>
-            <td>Username:</td>
+            <td class="rainbow-text">Username:</td>
             <td><input type="text" class="form-control" asp-for="Username"/></td>
             <td><span class="text-danger" asp-validation-for="Username"></span></td>
         </tr>
         <tr>
-            <td>Birthdate:</td>
+            <td class="rainbow-text">Birthdate:</td>
             <td><input type="date" class="form-control" asp-for="Birthdate"/></td>
             <td><span class="text-danger" asp-validation-for="Birthdate"></span></td>
         </tr>
         <tr>
-            <td>Password:</td>
+            <td class="rainbow-text">Password:</td>
             <td><input type="password" class="form-control" asp-for="Password"/></td>
             <td><span class="text-danger" asp-validation-for="Password"></span></td>
         </tr>
         <tr>
             <td colspan="2" class="text-center">
-                <input type="submit" class="btn btn-primary" value="Register"/>
-                <input type="reset" class="btn btn-secondary" value="Reset"/>
+                <input type="submit" class="btn rainbow-button" value="Register"/>
+                <input type="reset" class="btn rainbow-button" value="Reset"/>
             </td>
         </tr>
         </tbody>

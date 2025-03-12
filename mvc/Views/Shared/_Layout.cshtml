@@ -1,22 +1,22 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<body>
+<body style="background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);">
 <nav class="navbar bg-body-color navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid justify-content-md-start">
-        <a class="nav-link active" aria-current="page" href="/Home/Index">Home</a>
-        <a class="nav-link active" aria-current="page" href="/Home/Imprint">Imprint</a>
-        <a class="nav-link active" aria-current="page" href="/Shop/Index">Shop</a>
+        <a class="nav-link active rainbow-text" aria-current="page" href="/Home/Index">Home</a>
+        <a class="nav-link active rainbow-text" aria-current="page" href="/Home/Imprint">Imprint</a>
+        <a class="nav-link active rainbow-text" aria-current="page" href="/Shop/Index">Shop</a>
     </div>
     <div class="container-fluid justify-content-md-end">
         @if (Context.Session.GetString("Username") != null)
         {
           <form method="post" asp-controller="User" asp-action="Logout">
-            <input type="submit" value="Logout"/>
+            <input type="submit" class="btn rainbow-button" value="Logout"/>
           </form>
           <span class="navbar-text">@Context.Session.GetString("Username")</span>
         }
-        <a class="nav-link active" aria-current="page" href="/User/Registration">Registration</a>
-        <a class="nav-link active" aria-current="page" href="/User/Login">Login</a>
+        <a class="nav-link active rainbow-text" aria-current="page" href="/User/Registration">Registration</a>
+        <a class="nav-link active rainbow-text" aria-current="page" href="/User/Login">Login</a>
     </div>
 </nav>
 <div class="ms-3">
