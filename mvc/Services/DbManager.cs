@@ -6,6 +6,7 @@ namespace mvc.Services
     public class DbManager : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

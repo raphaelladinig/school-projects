@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Admin";
+}
+
+@model mvc.Models.Article
+<form method="post" asp-controller="Shop" asp-action="AddArticle">
+    <table>
+        <thead>
+        <tr>
+            <td colspan="3">Article Form</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" asp-for="Name"/></td>
+            <td><span asp-validation-for="Name"></span></td>
+        </tr>
+        <tr>
+            <td>Beschreibung:</td>
+            <td><input type="text" asp-for="Description"/></td>
+            <td><span asp-validation-for="Description"></span></td>
+        </tr>
+        <tr>
+            <td>Preis:</td>
+            <td><input type="number" asp-for="Price"/></td>
+            <td><span asp-validation-for="Price"></span></td>
+        </tr>
+        <tr>
+            <td>Typ:</td>
+            <td>
+                <select asp-for="ArticleType" asp-items="Html.GetEnumSelectList<mvc.Models.ArticleType>()"></select>
+            </td>
+            <td><span asp-validation-for="ArticleType"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Add Article"/>
+                <input type="reset" value="Reset"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
