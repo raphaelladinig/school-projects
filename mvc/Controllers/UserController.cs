@@ -23,11 +23,6 @@ namespace mvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration(User user)
         {
-            if (user is null)
-            {
-                return RedirectToAction("Registration");
-            }
-
             if (!Util.ValidString(user.Firstname, 2))
             {
                 ModelState.AddModelError("Firstname", "Firstname is too short");
@@ -38,6 +33,11 @@ namespace mvc.Controllers
                 ModelState.AddModelError("Lastname", "Lastname is too short");
             }
 
+            if (!Util.ValidString(user.Username, 2))
+            {
+                ModelState.AddModelError("Username", "Username is too short");
+            }
+
             if (!Util.ValidDate(user.Birthdate))
             {
                 ModelState.AddModelError("Date", "Date is in the future");
@@ -45,7 +45,7 @@ namespace mvc.Controllers
 
             if (!Util.ValidPassword(user.Password, 2, 8))
             {
-                ModelState.AddModelError("Password", "Password is wrong");
+                ModelState.AddModelError("Password", "Invalides passwort");
             }
 
             if (ModelState.IsValid)
@@ -80,11 +80,70 @@ namespace mvc.Controllers
 
             return View(user);
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(Login login)
+        {
+            if (!Util.ValidString(login.Username, 2))
+            {
+                ModelState.AddModelError("Username", "Username is too short");
+            }
+
+            if (!Util.ValidPassword(login.Password, 2, 8))
+            {
+                ModelState.AddModelError("Password", "Invalides passwort");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var existingUser = _dbManager.Users.FirstOrDefault(u => u.Username == login.Username);
+
+                if (existingUser != null)
+                {
+                    var result = passwordHasher.VerifyHashedPassword(
+                        login.Username,
+                        existingUser.Password,
+                        login.Password
+                    );
+
+                    if (result == PasswordVerificationResult.Success)
+                    {
+                        HttpContext.Session.SetString("Username", login.Username);
+                        return View(
+                            "Message",
+                            new Message() { Title = "Erfolg", Text = "Erfolgreicher Login" }
+                        );
+                    }
+                    else
+                    {
+                        return View(
+                            "Message",
+                            new Message() { Title = "Fehler", Text = "Falsches Passwort" }
+                        );
+                    }
+                }
+                else
+                {
+                    return View(
+                        "Message",
+                        new Message() { Title = "Fehler", Text = "User existiert nicht" }
+                    );
+                }
+            }
+
+            return View(login);
+        }
         
         [HttpPost]
-        public async Task<IActionResult> Login(User user)
+        public IActionResult Logout()
         {
-            return View(user);
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "User");
         }
     }
 }

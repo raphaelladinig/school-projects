@@ -1,8 +1,8 @@
-@model mvc.Models.User
 @{
     ViewData["Title"] = "Registration";
 }
 
+@model mvc.Models.User
 <form method="post" asp-controller="User" asp-action="Registration">
     <table>
         <thead>
@@ -22,7 +22,7 @@
             <td><span asp-validation-for="Lastname"></span></td>
         </tr>
         <tr>
-            <td>Username</td>
+            <td>Username:</td>
             <td><input type="text" asp-for="Username"/></td>
             <td><span asp-validation-for="Username"></span></td>
         </tr>
@@ -33,7 +33,7 @@
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" class="" asp-for="Password"/></td>
+            <td><input type="password" asp-for="Password"/></td>
             <td><span asp-validation-for="Password"></span></td>
         </tr>
         <tr>

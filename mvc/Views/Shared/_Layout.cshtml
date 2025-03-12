@@ -8,6 +8,12 @@
         <a class="nav-link active" aria-current="page" href="/User/Registration">Registration</a>
         <a class="nav-link active" aria-current="page" href="/User/Login">Login</a>
     </div>
+    <div class="container-fluid justify-content-md-end">
+        @if (Context.Session.GetString("Username") != null)
+        {
+          <span class="navbar-text">@Context.Session.GetString("Username")</span>
+        }
+    </div>
 </nav>
 <div class="ms-3">
     @RenderBody()
