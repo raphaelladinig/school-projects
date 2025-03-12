@@ -3,30 +3,34 @@
 }
 
 @model mvc.Models.Login
-<form method="post" asp-controller="User" asp-action="Login">
-    <table>
+<form class="form-horizontal" method="post" asp-controller="User" asp-action="Login">
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <td colspan="3">Login Form</td>
+            <td colspan="3" class="text-center">Login Form</td>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>Username:</td>
-            <td><input type="text" asp-for="Username"/></td>
-            <td><span asp-validation-for="Username"></span></td>
+            <td><input type="text" class="form-control" asp-for="Username"/></td>
+            <td><span class="text-danger" asp-validation-for="Username"></span></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" asp-for="Password"/></td>
-            <td><span asp-validation-for="Password"></span></td>
+            <td><input type="password" class="form-control" asp-for="Password"/></td>
+            <td><span class="text-danger" asp-validation-for="Password"></span></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <input type="submit" value="Login"/>
-                <input type="reset" value="Reset"/>
+            <td colspan="2" class="text-center">
+                <input type="submit" class="btn btn-primary" value="Login"/>
+                <input type="reset" class="btn btn-secondary" value="Reset"/>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="text-center">
+        <img src="~/images/unicorn.png" alt="Unicorn" class="img-fluid" />
+        <img src="~/images/rainbow.png" alt="Rainbow" class="img-fluid" />
+    </div>
 </form>

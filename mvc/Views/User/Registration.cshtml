@@ -3,47 +3,49 @@
 }
 
 @model mvc.Models.User
-<form method="post" asp-controller="User" asp-action="Registration">
-    <table>
+<form class="form-horizontal" method="post" asp-controller="User" asp-action="Registration">
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <td colspan="3">Registration Form</td>
+            <td colspan="3" class="text-center">Registration Form</td>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>First Name:</td>
-            <td><input type="text" asp-for="Firstname"/></td>
-            <td><span asp-validation-for="Firstname"></span></td>
+            <td><input type="text" class="form-control" asp-for="Firstname"/></td>
+            <td><span class="text-danger" asp-validation-for="Firstname"></span></td>
         </tr>
         <tr>
             <td>Last Name:</td>
-            <td><input type="text" asp-for="Lastname"/></td>
-            <td><span asp-validation-for="Lastname"></span></td>
+            <td><input type="text" class="form-control" asp-for="Lastname"/></td>
+            <td><span class="text-danger" asp-validation-for="Lastname"></span></td>
         </tr>
         <tr>
             <td>Username:</td>
-            <td><input type="text" asp-for="Username"/></td>
-            <td><span asp-validation-for="Username"></span></td>
+            <td><input type="text" class="form-control" asp-for="Username"/></td>
+            <td><span class="text-danger" asp-validation-for="Username"></span></td>
         </tr>
         <tr>
             <td>Birthdate:</td>
-            <td><input type="date" asp-for="Birthdate"/></td>
-            <td><span asp-validation-for="Birthdate"></span></td>
+            <td><input type="date" class="form-control" asp-for="Birthdate"/></td>
+            <td><span class="text-danger" asp-validation-for="Birthdate"></span></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type="password" asp-for="Password"/></td>
-            <td><span asp-validation-for="Password"></span></td>
+            <td><input type="password" class="form-control" asp-for="Password"/></td>
+            <td><span class="text-danger" asp-validation-for="Password"></span></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <input type="submit" value="Register"/>
-                <input type="reset" value="Reset"/>
+            <td colspan="2" class="text-center">
+                <input type="submit" class="btn btn-primary" value="Register"/>
+                <input type="reset" class="btn btn-secondary" value="Reset"/>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="text-center">
+        <img src="~/images/unicorn.png" alt="Unicorn" class="img-fluid" />
+        <img src="~/images/rainbow.png" alt="Rainbow" class="img-fluid" />
+    </div>
 </form>
-
-

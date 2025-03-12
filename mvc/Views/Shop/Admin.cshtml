@@ -3,42 +3,46 @@
 }
 
 @model mvc.Models.Article
-<form method="post" asp-controller="Shop" asp-action="AddArticle">
-    <table>
+<form class="form-horizontal" method="post" asp-controller="Shop" asp-action="AddArticle">
+    <table class="table table-bordered">
         <thead>
         <tr>
-            <td colspan="3">Article Form</td>
+            <td colspan="3" class="text-center">Article Form</td>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>Name:</td>
-            <td><input type="text" asp-for="Name"/></td>
-            <td><span asp-validation-for="Name"></span></td>
+            <td><input type="text" class="form-control" asp-for="Name"/></td>
+            <td><span class="text-danger" asp-validation-for="Name"></span></td>
         </tr>
         <tr>
             <td>Beschreibung:</td>
-            <td><input type="text" asp-for="Description"/></td>
-            <td><span asp-validation-for="Description"></span></td>
+            <td><input type="text" class="form-control" asp-for="Description"/></td>
+            <td><span class="text-danger" asp-validation-for="Description"></span></td>
         </tr>
         <tr>
             <td>Preis:</td>
-            <td><input type="number" asp-for="Price"/></td>
-            <td><span asp-validation-for="Price"></span></td>
+            <td><input type="number" class="form-control" asp-for="Price"/></td>
+            <td><span class="text-danger" asp-validation-for="Price"></span></td>
         </tr>
         <tr>
             <td>Typ:</td>
             <td>
-                <select asp-for="ArticleType" asp-items="Html.GetEnumSelectList<mvc.Models.ArticleType>()"></select>
+                <select class="form-control" asp-for="ArticleType" asp-items="Html.GetEnumSelectList<mvc.Models.ArticleType>()"></select>
             </td>
-            <td><span asp-validation-for="ArticleType"></span></td>
+            <td><span class="text-danger" asp-validation-for="ArticleType"></span></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <input type="submit" value="Add Article"/>
-                <input type="reset" value="Reset"/>
+            <td colspan="2" class="text-center">
+                <input type="submit" class="btn btn-primary" value="Add Article"/>
+                <input type="reset" class="btn btn-secondary" value="Reset"/>
             </td>
         </tr>
         </tbody>
     </table>
+    <div class="text-center">
+        <img src="~/images/unicorn.png" alt="Unicorn" class="img-fluid" />
+        <img src="~/images/rainbow.png" alt="Rainbow" class="img-fluid" />
+    </div>
 </form>
