@@ -3,21 +3,21 @@
 }
 
 @model mvc.Models.Login
-<form class="form-horizontal" method="post" asp-controller="User" asp-action="Login">
+<form class="form-horizontal rainbow-background" method="post" asp-controller="User" asp-action="Login">
     <table class="table table-bordered">
         <thead>
         <tr>
-            <td colspan="3" class="text-center">Login Form</td>
+            <td colspan="3" class="text-center rainbow-text">Login Form</td>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>Username:</td>
+            <td class="rainbow-text">Username:</td>
             <td><input type="text" class="form-control" asp-for="Username"/></td>
             <td><span class="text-danger" asp-validation-for="Username"></span></td>
         </tr>
         <tr>
-            <td>Password:</td>
+            <td class="rainbow-text">Password:</td>
             <td><input type="password" class="form-control" asp-for="Password"/></td>
             <td><span class="text-danger" asp-validation-for="Password"></span></td>
         </tr>
