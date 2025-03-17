@@ -52,7 +52,7 @@ namespace mvc.Controllers
             }
 
             var cartItems = _dbManager
-                .Orders.Where(c => c.Username == username)
+                .Orders.Where(c => c.Username == username && c.IsCart)
                 .Include(c => c.Article)
                 .ToList();
 
@@ -128,21 +128,15 @@ namespace mvc.Controllers
                     c.Username == username && c.Article.ArticleId == articleId
                 );
 
-                if (cartItem != null)
-                {
-                    cartItem.Quantity += quantity;
-                }
-                else
-                {
-                    _dbManager.Orders.Add(
-                        new Order
-                        {
-                            Username = username,
-                            Article = article,
-                            Quantity = quantity,
-                        }
-                    );
-                }
+                _dbManager.Orders.Add(
+                    new Order
+                    {
+                        Username = username,
+                        Article = article,
+                        Quantity = quantity,
+                        IsCart = true,
+                    }
+                );
 
                 await _dbManager.SaveChangesAsync();
                 return View("Message", new Message() { Title = "Erfolg", Text = "" });
@@ -160,9 +154,31 @@ namespace mvc.Controllers
             try
             {
                 var username = HttpContext.Session.GetString("Username");
-                var orders = _dbManager.Orders.Where(c => c.Username == username);
+                var orders = _dbManager.Orders.Where(c => c.Username == username && c.IsCart);
                 _dbManager.Orders.RemoveRange(orders);
                 await _dbManager.SaveChangesAsync();
+                return View("Message", new Message() { Title = "Erfolg", Text = "" });
+            }
+            catch
+            {
+                return View("Message", new Message() { Title = "Fehler", Text = "" });
+            }
+            ;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Order()
+        {
+            try
+            {
+                var username = HttpContext.Session.GetString("Username");
+                var orders = _dbManager.Orders.Where(c => c.Username == username);
+                foreach (var order in orders)
+                {
+                    order.IsCart = false;
+                }
+                await _dbManager.SaveChangesAsync();
+
                 return View("Message", new Message() { Title = "Erfolg", Text = "" });
             }
             catch

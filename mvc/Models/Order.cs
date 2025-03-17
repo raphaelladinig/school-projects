@@ -8,5 +8,6 @@ namespace mvc.Models
         public string Username { get; set; }
         public Article Article { get; set; }
         public int Quantity { get; set; }
+        public bool IsCart { get; set; } 
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mvc.Services;
 
@@ -11,9 +12,11 @@ using mvc.Services;
 namespace mvc.Migrations
 {
     [DbContext(typeof(DbManager))]
-    partial class DbManagerModelSnapshot : ModelSnapshot
+    [Migration("20250317121124_11")]
+    partial class _11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,9 +63,6 @@ namespace mvc.Migrations
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsCart")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -74,7 +74,7 @@ namespace mvc.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("mvc.Models.User", b =>

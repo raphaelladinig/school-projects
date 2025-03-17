@@ -42,7 +42,11 @@
         </div>
 
         <form asp-action="ClearCart" method="post">
-            <button type="submit" class="btn btn-danger">Warenkorb leeren</button>
+            <button type="submit">Warenkorb leeren</button>
+        </form>
+        
+        <form asp-action="Order" method="post">
+            <button type="submit">Bestellen</button>
         </form>
     }
 </div>

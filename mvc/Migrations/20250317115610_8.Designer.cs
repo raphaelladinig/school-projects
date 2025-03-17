@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mvc.Services;
 
@@ -11,9 +12,11 @@ using mvc.Services;
 namespace mvc.Migrations
 {
     [DbContext(typeof(DbManager))]
-    partial class DbManagerModelSnapshot : ModelSnapshot
+    [Migration("20250317115610_8")]
+    partial class _8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,12 +44,42 @@ namespace mvc.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
                     b.HasKey("ArticleId");
 
+                    b.HasIndex("OrderId");
+
                     b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("mvc.Models.Cart", b =>
+                {
+                    b.Property<int>("CartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CartId"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("CartId");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("mvc.Models.Order", b =>
@@ -57,22 +90,15 @@ namespace mvc.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrderId"));
 
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsCart")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("Quantities")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("ArticleId");
 
                     b.ToTable("Orders");
                 });
@@ -112,7 +138,14 @@ namespace mvc.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("mvc.Models.Order", b =>
+            modelBuilder.Entity("mvc.Models.Article", b =>
+                {
+                    b.HasOne("mvc.Models.Order", null)
+                        .WithMany("Article")
+                        .HasForeignKey("OrderId");
+                });
+
+            modelBuilder.Entity("mvc.Models.Cart", b =>
                 {
                     b.HasOne("mvc.Models.Article", "Article")
                         .WithMany()
@@ -120,6 +153,11 @@ namespace mvc.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Article");
+                });
+
+            modelBuilder.Entity("mvc.Models.Order", b =>
+                {
                     b.Navigation("Article");
                 });
 #pragma warning restore 612, 618
