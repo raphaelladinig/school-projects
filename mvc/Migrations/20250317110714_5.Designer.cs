@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mvc.Services;
 
@@ -11,9 +12,11 @@ using mvc.Services;
 namespace mvc.Migrations
 {
     [DbContext(typeof(DbManager))]
-    partial class DbManagerModelSnapshot : ModelSnapshot
+    [Migration("20250317110714_5")]
+    partial class _5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,13 +52,13 @@ namespace mvc.Migrations
                     b.ToTable("Articles");
                 });
 
-            modelBuilder.Entity("mvc.Models.Order", b =>
+            modelBuilder.Entity("mvc.Models.Cart", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("CartId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrderId"));
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("CartId"));
 
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
@@ -67,11 +70,11 @@ namespace mvc.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("CartId");
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("mvc.Models.User", b =>
@@ -109,7 +112,7 @@ namespace mvc.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("mvc.Models.Order", b =>
+            modelBuilder.Entity("mvc.Models.Cart", b =>
                 {
                     b.HasOne("mvc.Models.Article", "Article")
                         .WithMany()

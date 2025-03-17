@@ -1,0 +1,49 @@
+﻿@model IEnumerable<mvc.Models.Order>
+
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<div class="container rainbow-background">
+    <h1>@ViewData["Title"]</h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p>Ihr Warenkorb ist leer.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Artikel</th>
+                    <th>Beschreibung</th>
+                    <th>Preis</th>
+                    <th>Menge</th>
+                    <th>Gesamt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Article.Name</td>
+                        <td>@item.Article.Description</td>
+                        <td>@item.Article.Price €</td>
+                        <td>@item.Quantity</td>
+                        <td>@(item.Article.Price * item.Quantity) €</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="total">
+            <h3>Gesamtbetrag: @Model.Sum(i => i.Article.Price * i.Quantity) €</h3>
+        </div>
+
+        <form asp-action="ClearCart" method="post">
+            <button type="submit" class="btn btn-danger">Warenkorb leeren</button>
+        </form>
+    }
+</div>
+

@@ -5,4 +5,11 @@
     <p>@Model.Description</p>
     <p>Preis: @Model.Price €</p>
     <p>Typ: @Model.ArticleType</p>
+
+    <form asp-action="AddToCart" method="post">
+        <input type="hidden" name="articleId" value="@Model.ArticleId" />
+        <label for="quantity">Menge:</label>
+        <input type="number" name="quantity" value="1" min="1" />
+        <button type="submit">In den Warenkorb</button>
+    </form>
 </div>
