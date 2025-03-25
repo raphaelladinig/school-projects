@@ -1,0 +1,13 @@
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bin/
+obj/
+*.nupkg
+packages/
+*.snupkg
+App_Data/
+*.db
+*.mdf
+*.ldf
