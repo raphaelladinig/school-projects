@@ -2,4 +2,4 @@ default:
   just --list
 
 run:
-  python src/app.py
+  docker-compose up
