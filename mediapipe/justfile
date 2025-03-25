@@ -1,5 +1,0 @@
-default:
-  just --list
-
-run:
-  python src/main.py
