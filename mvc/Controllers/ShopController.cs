@@ -1,3 +1,5 @@
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using mvc.Models;
@@ -172,20 +174,57 @@ namespace mvc.Controllers
             try
             {
                 var username = HttpContext.Session.GetString("Username");
-                var orders = _dbManager.Orders.Where(c => c.Username == username);
+                var orders = _dbManager
+                    .Orders.Where(c => c.Username == username)
+                    .Include(c => c.Article)
+                    .ToList();
+
                 foreach (var order in orders)
                 {
                     order.IsCart = false;
                 }
                 await _dbManager.SaveChangesAsync();
 
-                return View("Message", new Message() { Title = "Erfolg", Text = "" });
+                byte[] pdf;
+                using (var ms = new MemoryStream())
+                {
+                    var doc = new Document();
+                    var writer = PdfWriter.GetInstance(doc, ms);
+                    doc.Open();
+
+                    var font = FontFactory.GetFont("Arial", 12);
+                    var paragraph = new Paragraph("Bestellung von " + username, font);
+                    doc.Add(paragraph);
+
+                    foreach (var order in orders)
+                    {
+                        if (order == null || order.Article == null)
+                        {
+                            continue;
+                        }
+
+                        paragraph = new Paragraph("Produkt: " + order.Article.Name, font);
+                        doc.Add(paragraph);
+                        paragraph = new Paragraph("Menge: " + order.Quantity.ToString(), font);
+                        doc.Add(paragraph);
+                        paragraph = new Paragraph("Preis: " + order.Article.Price.ToString(), font);
+                        doc.Add(paragraph);
+                        paragraph = new Paragraph(" ", font);
+                        doc.Add(paragraph);
+                    }
+
+                    doc.Close();
+                    writer.Close();
+
+                    pdf = ms.ToArray();
+                }
+
+                return File(pdf, "application/pdf", "Bestellung.pdf");
             }
-            catch
+            catch (Exception ex)
             {
-                return View("Message", new Message() { Title = "Fehler", Text = "" });
+                return View("Message", new Message() { Title = "Fehler", Text = ex.Message });
             }
-            ;
         }
     }
 }
