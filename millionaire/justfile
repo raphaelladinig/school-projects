@@ -1,6 +1,9 @@
 default:
   just --list
 
+build:
+  docker compose build
+
 run:
   mkdir -p data
-  docker-compose up
+  docker compose up

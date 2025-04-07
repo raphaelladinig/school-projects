@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template_string, session, render_template
 from flask_restful import Api
+from flask_cors import CORS
 from db import Base, engine
 from questions import (
     get_questions,
@@ -14,13 +15,14 @@ from questions import (
 
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = "secret"
 api = Api(app)
 
 if not os.path.exists("questions.db"):
     Base.metadata.create_all(engine)
     print("Creating Database...")
-    read_questions("millionaire.txt")
+    read_questions("students.txt")
 
 
 questions = get_questions()
