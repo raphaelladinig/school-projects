@@ -8,7 +8,7 @@ using namespace std;
 const int GRID_SIZE_X = 32;
 const int GRID_SIZE_Y = 16;
 const int SNAKE_START_LENGTH = 3;
-const int GAME_SPEED_DELAY = 300;
+const int GAME_SPEED_DELAY = 200;
 const CRGB SNAKE_COLOR = CRGB::Green;
 const CRGB FOOD_COLOR = CRGB::Blue;
 const CRGB BACKGROUND_COLOR = CRGB::Black;
@@ -105,6 +105,21 @@ void Snake(void *pvParameters) {
                 snakeHeadX++;
                 break;
             }
+            // für asm dann weil anderst eingbaut muss aber noch die namen von den Richtungen fixen und startrichtung
+            // switch (currentDirection) {
+            // case RIGHT:
+            //     snakeHeadY--;
+            //     break;
+            // case LEFT:
+            //     snakeHeadY++;
+            //     break;
+            // case UP:
+            //     snakeHeadX--;
+            //     break;
+            // case DOWN:
+            //     snakeHeadX++;
+            //     break;
+            // }
 
             if (snakeHeadX < 1 || snakeHeadX >= GRID_SIZE_X - 1 ||
                 snakeHeadY < 1 || snakeHeadY >= GRID_SIZE_Y - 1) {
