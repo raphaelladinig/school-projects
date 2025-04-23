@@ -23,7 +23,7 @@ void TaskA(void *pvParameters) {
                 FastLED.clear(true);
             }
         }
-        vTaskDelay(pdMS_TO_TICKS(2000));
+        // vTaskDelay(pdMS_TO_TICKS(2000));
     }
 }
 

@@ -15,7 +15,7 @@ int getLed(int x, int y) {
 void setLed(int x, int y, CRGB color, CRGB *leds1, CRGB *leds2) {
     if (y < 8) {
         Serial.println(getLed(x, y));
-        leds1[getLed(x, y)] = color;
+        leds1[getLed(31 - x, 7 - y)] = color;
     } else {
         Serial.println(getLed(x, y - 8));
         leds2[getLed(x, y - 8)] = color;
