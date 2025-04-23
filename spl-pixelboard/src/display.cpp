@@ -48,3 +48,5 @@ void Display::setLed(int x, int y, CRGB color) {
     }
     FastLED.show();
 }
+
+void Display::clear() { FastLED.clear(true); }

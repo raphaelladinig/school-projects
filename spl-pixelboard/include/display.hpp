@@ -7,6 +7,7 @@ class Display {
   public:
     Display(int leds1_pin, int leds2_pin);
     void setLed(int x, int y, CRGB color);
+    void clear();
 
   private:
     int getLed(int x, int y);
