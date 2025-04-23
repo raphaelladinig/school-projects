@@ -3,6 +3,8 @@
 #include "pixelboard.hpp"
 #include <list>
 
+// TODO bugfixen wo er in sich selber reinfährt
+
 using namespace std;
 
 const int GRID_SIZE_X = 32;
@@ -14,7 +16,7 @@ const CRGB FOOD_COLOR = CRGB::Blue;
 const CRGB BACKGROUND_COLOR = CRGB::Black;
 const CRGB WALL_COLOR = CRGB::Red;
 
-enum Direction { UP, DOWN, LEFT, RIGHT };
+enum Direction { LEFT, RIGHT, UP, DOWN };
 
 void generateFood(int &foodX, int &foodY,
                   const list<pair<int, int>> &snakeBody) {
@@ -75,27 +77,27 @@ void Snake(void *pvParameters) {
         Serial.println(y);
 
         if (x > 2500) {
-            if (currentDirection != LEFT)
-                currentDirection = RIGHT;
-        } else if (x < 1500) {
-            if (currentDirection != RIGHT)
-                currentDirection = LEFT;
-        } else if (y > 2500) {
-            if (currentDirection != DOWN)
-                currentDirection = UP;
-        } else if (y < 1500) {
             if (currentDirection != UP)
                 currentDirection = DOWN;
+        } else if (x < 1500) {
+            if (currentDirection != DOWN)
+                currentDirection = UP;
+        } else if (y > 2500) {
+            if (currentDirection != RIGHT)
+                currentDirection = LEFT;
+        } else if (y < 1500) {
+            if (currentDirection != LEFT)
+                currentDirection = RIGHT;
         }
 
         if (millis() - lastMoveTime >= GAME_SPEED_DELAY) {
             lastMoveTime = millis();
 
             switch (currentDirection) {
-            case UP:
+            case DOWN:
                 snakeHeadY--;
                 break;
-            case DOWN:
+            case UP:
                 snakeHeadY++;
                 break;
             case LEFT:
@@ -105,21 +107,6 @@ void Snake(void *pvParameters) {
                 snakeHeadX++;
                 break;
             }
-            // für asm dann weil anderst eingbaut muss aber noch die namen von den Richtungen fixen und startrichtung
-            // switch (currentDirection) {
-            // case RIGHT:
-            //     snakeHeadY--;
-            //     break;
-            // case LEFT:
-            //     snakeHeadY++;
-            //     break;
-            // case UP:
-            //     snakeHeadX--;
-            //     break;
-            // case DOWN:
-            //     snakeHeadX++;
-            //     break;
-            // }
 
             if (snakeHeadX < 1 || snakeHeadX >= GRID_SIZE_X - 1 ||
                 snakeHeadY < 1 || snakeHeadY >= GRID_SIZE_Y - 1) {
