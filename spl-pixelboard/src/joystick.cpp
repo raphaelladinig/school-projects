@@ -1,1 +1,1 @@
-#include "../include/joystick.hpp"
+#include "joystick.hpp"

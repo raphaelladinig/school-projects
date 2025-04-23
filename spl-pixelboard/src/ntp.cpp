@@ -1,1 +1,1 @@
-#include "../include/ntp.hpp"
+#include "ntp.hpp"
