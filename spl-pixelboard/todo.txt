@@ -1,0 +1,3 @@
+snake bug wo er in sich selber reinfährt
+zwischen tasks switchen
+WiFi.h not found

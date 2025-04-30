@@ -3,8 +3,6 @@
 #include "pixelboard.hpp"
 #include <list>
 
-// TODO bugfixen wo er in sich selber reinfährt
-
 using namespace std;
 
 const int GRID_SIZE_X = 32;
@@ -15,8 +13,6 @@ const CRGB SNAKE_COLOR = CRGB::Green;
 const CRGB FOOD_COLOR = CRGB::Blue;
 const CRGB BACKGROUND_COLOR = CRGB::Black;
 const CRGB WALL_COLOR = CRGB::Red;
-
-enum Direction { LEFT, RIGHT, UP, DOWN };
 
 void generateFood(int &foodX, int &foodY,
                   const list<pair<int, int>> &snakeBody) {
@@ -36,7 +32,8 @@ void Snake(void *pvParameters) {
     int snakeLength = SNAKE_START_LENGTH;
     int snakeHeadX = GRID_SIZE_X / 2;
     int snakeHeadY = GRID_SIZE_Y / 2;
-    Direction currentDirection = RIGHT;
+    Direction direction = RIGHT;
+    Direction previousDirection = RIGHT;
     int foodX, foodY;
     bool gameOver = false;
     unsigned long lastMoveTime = 0;
@@ -68,42 +65,29 @@ void Snake(void *pvParameters) {
 
     while (!gameOver) {
         pb->joystick.update();
-
-        int x = pb->joystick.getX();
-        int y = pb->joystick.getY();
-        Serial.print("x: ");
-        Serial.println(x);
-        Serial.print("y: ");
-        Serial.println(y);
-
-        if (x > 2500) {
-            if (currentDirection != UP)
-                currentDirection = DOWN;
-        } else if (x < 1500) {
-            if (currentDirection != DOWN)
-                currentDirection = UP;
-        } else if (y > 2500) {
-            if (currentDirection != RIGHT)
-                currentDirection = LEFT;
-        } else if (y < 1500) {
-            if (currentDirection != LEFT)
-                currentDirection = RIGHT;
+        direction = pb->joystick.getCurrentDirection();
+        if (direction == NONE) {
+            direction = previousDirection;
         }
 
         if (millis() - lastMoveTime >= GAME_SPEED_DELAY) {
             lastMoveTime = millis();
 
-            switch (currentDirection) {
+            switch (direction) {
             case DOWN:
+                previousDirection = DOWN;
                 snakeHeadY--;
                 break;
             case UP:
+                previousDirection = UP;
                 snakeHeadY++;
                 break;
             case LEFT:
+                previousDirection = LEFT;
                 snakeHeadX--;
                 break;
             case RIGHT:
+                previousDirection = RIGHT;
                 snakeHeadX++;
                 break;
             }
