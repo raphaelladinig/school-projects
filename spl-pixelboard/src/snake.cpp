@@ -1,5 +1,4 @@
 #include "snake.hpp"
-#include "HardwareSerial.h"
 #include "pixelboard.hpp"
 #include <list>
 
@@ -27,7 +26,6 @@ void generateFood(int &foodX, int &foodY,
 
 void Snake(void *pvParameters) {
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
-
     list<pair<int, int>> snakeBody;
     int snakeLength = SNAKE_START_LENGTH;
     int snakeHeadX = GRID_SIZE_X / 2;
@@ -119,7 +117,7 @@ void Snake(void *pvParameters) {
                 snakeLength++;
                 generateFood(foodX, foodY, snakeBody);
                 pb->display.setLed(previousFoodX, previousFoodY,
-                                   BACKGROUND_COLOR);
+                                  BACKGROUND_COLOR);
             } else {
                 pair<int, int> tail = snakeBody.back();
                 snakeBody.pop_back();
