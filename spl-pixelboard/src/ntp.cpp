@@ -3,5 +3,10 @@
 #include <Arduino.h>
 
 void Ntp(void *pvParameters) {
-    Serial.println("test");
+    vTaskDelay(50);
+
+    while (1) {
+        Serial.print("b");
+        vTaskDelay(10);
+    };
 }

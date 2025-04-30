@@ -7,12 +7,15 @@
 using namespace std;
 
 void TaskSwitcher(void *pvParameters) {
+    vTaskDelay(50);
+
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
     vector<TaskHandle_t> tasks = pb->getTasks();
     int activeTask = 0;
     static unsigned long lastCheckTime = 0;
 
     while (1) {
+        Serial.print("c");
         pb->joystick.update();
 
         if (millis() - lastCheckTime >= 50) {
@@ -32,5 +35,7 @@ void TaskSwitcher(void *pvParameters) {
 
             lastCheckTime = millis();
         }
+
+        vTaskDelay(10);
     }
 }

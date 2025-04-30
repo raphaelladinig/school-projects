@@ -25,6 +25,8 @@ void generateFood(int &foodX, int &foodY,
 }
 
 void Snake(void *pvParameters) {
+    vTaskDelay(50);
+
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
     list<pair<int, int>> snakeBody;
     int snakeLength = SNAKE_START_LENGTH;
@@ -62,75 +64,78 @@ void Snake(void *pvParameters) {
     }
 
     while (!gameOver) {
-        pb->joystick.update();
-        direction = pb->joystick.getCurrentDirection();
-        if (direction == NONE) {
-            direction = previousDirection;
-        }
+        Serial.print("a");
+        // pb->joystick.update();
+        // direction = pb->joystick.getCurrentDirection();
+        // if (direction == NONE) {
+        //     direction = previousDirection;
+        // }
+        //
+        // if (millis() - lastMoveTime >= GAME_SPEED_DELAY) {
+        //     lastMoveTime = millis();
+        //
+        //     switch (direction) {
+        //     case DOWN:
+        //         previousDirection = DOWN;
+        //         snakeHeadY--;
+        //         break;
+        //     case UP:
+        //         previousDirection = UP;
+        //         snakeHeadY++;
+        //         break;
+        //     case LEFT:
+        //         previousDirection = LEFT;
+        //         snakeHeadX--;
+        //         break;
+        //     case RIGHT:
+        //         previousDirection = RIGHT;
+        //         snakeHeadX++;
+        //         break;
+        //     }
+        //
+        //     if (snakeHeadX < 1 || snakeHeadX >= GRID_SIZE_X - 1 ||
+        //         snakeHeadY < 1 || snakeHeadY >= GRID_SIZE_Y - 1) {
+        //         gameOver = true;
+        //         break;
+        //     }
+        //
+        //     if (snakeHeadX < 0 || snakeHeadX >= GRID_SIZE_X || snakeHeadY < 0 ||
+        //         snakeHeadY >= GRID_SIZE_Y) {
+        //         gameOver = true;
+        //         break;
+        //     }
+        //     for (const auto &segment : snakeBody) {
+        //         if (segment.first == snakeHeadX &&
+        //             segment.second == snakeHeadY) {
+        //             gameOver = true;
+        //             break;
+        //         }
+        //     }
+        //     if (gameOver)
+        //         break;
+        //
+        //     snakeBody.push_front({snakeHeadX, snakeHeadY});
+        //
+        //     if (snakeHeadX == foodX && snakeHeadY == foodY) {
+        //         snakeLength++;
+        //         generateFood(foodX, foodY, snakeBody);
+        //         pb->display.setLed(previousFoodX, previousFoodY,
+        //                            BACKGROUND_COLOR);
+        //     } else {
+        //         pair<int, int> tail = snakeBody.back();
+        //         snakeBody.pop_back();
+        //         pb->display.setLed(tail.first, tail.second, BACKGROUND_COLOR);
+        //     }
+        //     pb->display.setLed(snakeHeadX, snakeHeadY, SNAKE_COLOR);
+        //     pb->display.setLed(foodX, foodY, FOOD_COLOR);
+        //
+        //     previousFoodX = foodX;
+        //     previousFoodY = foodY;
+        //     previousSnakeHeadX = snakeHeadX;
+        //     previousSnakeHeadY = snakeHeadY;
+        // }
 
-        if (millis() - lastMoveTime >= GAME_SPEED_DELAY) {
-            lastMoveTime = millis();
-
-            switch (direction) {
-            case DOWN:
-                previousDirection = DOWN;
-                snakeHeadY--;
-                break;
-            case UP:
-                previousDirection = UP;
-                snakeHeadY++;
-                break;
-            case LEFT:
-                previousDirection = LEFT;
-                snakeHeadX--;
-                break;
-            case RIGHT:
-                previousDirection = RIGHT;
-                snakeHeadX++;
-                break;
-            }
-
-            if (snakeHeadX < 1 || snakeHeadX >= GRID_SIZE_X - 1 ||
-                snakeHeadY < 1 || snakeHeadY >= GRID_SIZE_Y - 1) {
-                gameOver = true;
-                break;
-            }
-
-            if (snakeHeadX < 0 || snakeHeadX >= GRID_SIZE_X || snakeHeadY < 0 ||
-                snakeHeadY >= GRID_SIZE_Y) {
-                gameOver = true;
-                break;
-            }
-            for (const auto &segment : snakeBody) {
-                if (segment.first == snakeHeadX &&
-                    segment.second == snakeHeadY) {
-                    gameOver = true;
-                    break;
-                }
-            }
-            if (gameOver)
-                break;
-
-            snakeBody.push_front({snakeHeadX, snakeHeadY});
-
-            if (snakeHeadX == foodX && snakeHeadY == foodY) {
-                snakeLength++;
-                generateFood(foodX, foodY, snakeBody);
-                pb->display.setLed(previousFoodX, previousFoodY,
-                                  BACKGROUND_COLOR);
-            } else {
-                pair<int, int> tail = snakeBody.back();
-                snakeBody.pop_back();
-                pb->display.setLed(tail.first, tail.second, BACKGROUND_COLOR);
-            }
-            pb->display.setLed(snakeHeadX, snakeHeadY, SNAKE_COLOR);
-            pb->display.setLed(foodX, foodY, FOOD_COLOR);
-
-            previousFoodX = foodX;
-            previousFoodY = foodY;
-            previousSnakeHeadX = snakeHeadX;
-            previousSnakeHeadY = snakeHeadY;
-        }
+        vTaskDelay(10);
     }
 
     pb->display.clear();
