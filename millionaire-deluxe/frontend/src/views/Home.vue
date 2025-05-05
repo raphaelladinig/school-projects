@@ -3,7 +3,9 @@
     <h1>Millionaire Deluxe</h1>
     
     <section>
-      <button @click="">Play Now</button>
+      <button @click="">
+        <a href="/play">play now</a>
+      </button>
     </section>
 
     <section>
