@@ -1,7 +1,10 @@
-run:
+run-backend:
   #!/bin/sh
   cd ./backend/.out
-  mkdir -p data
-  docker compose up &
+  docker compose up
+
+run-frontend:
+  #!/bin/sh
+  cd ./backend/.out
   cd ../../frontend
-  npm run dev  &
+  npm run dev

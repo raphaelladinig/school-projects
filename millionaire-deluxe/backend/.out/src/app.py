@@ -22,7 +22,7 @@ api = Api(app)
 if not os.path.exists("questions.db"):
     Base.metadata.create_all(engine)
     print("Creating Database...")
-    read_questions("students.txt")
+    read_questions("millionaire.txt")
 
 
 questions = get_questions()
