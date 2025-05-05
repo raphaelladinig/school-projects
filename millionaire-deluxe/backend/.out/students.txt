@@ -1,0 +1,10 @@
+0	Peter	Black	Red	White	Blue	
+0	Leon	Black	Red	White	Blue	
+0	Hendrik	Black	Red	White	Blue	
+0	Chris	Black	Red	White	Blue	
+0	Silvana	Black	Red	White	Blue	
+0	Melanie	Black	Red	White	Blue	
+0	Julian	Black	Red	White	Blue	
+0	Raphael	Black	Red	White	Blue	
+0	David	Black	Red	White	Blue	
+0	Burak	Black	Red	White	Blue	

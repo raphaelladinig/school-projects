@@ -1,0 +1,12 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  margin: 20px;
+  background-color: green;
+}
+
+section {
+  border: 5px solid blue;
+  background-color: red;
+  padding: 20px;
+  margin-bottom: 20px;
+}
