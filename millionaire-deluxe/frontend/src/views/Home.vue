@@ -1,6 +1,30 @@
 <template>
   <div id="app">
-    <h1>Millionaire API</h1>
+    <h1>Millionaire Deluxe</h1>
+    
+    <section>
+      <button @click="">Play Now</button>
+    </section>
+
+    <section>
+      <h2>Create User</h2>
+    </section>
+
+    <section>
+      <h2>Delete User</h2>
+    </section>
+
+    <section>
+      <h2>All Users</h2>
+    </section>
+
+    <section>
+      <h2>Create Question</h2>
+    </section>
+
+    <section>
+      <h2>Delete Question</h2>
+    </section>
 
     <section>
       <h2>All Questions</h2>
