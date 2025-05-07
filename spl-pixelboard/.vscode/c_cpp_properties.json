@@ -8,9 +8,10 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "/home/raphael/Dev/school/spl-pixelboard/include",
-                "/home/raphael/Dev/school/spl-pixelboard/src",
-                "/home/raphael/Dev/school/spl-pixelboard/.pio/libdeps/esp32/FastLED/src",
+                "/home/raphael/Dev/leon-pixelboard/include",
+                "/home/raphael/Dev/leon-pixelboard/src",
+                "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
+                "/home/raphael/Dev/leon-pixelboard/.pio/libdeps/esp32/FastLED/src",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
@@ -236,7 +237,6 @@
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                 "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
@@ -245,9 +245,10 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/home/raphael/Dev/school/spl-pixelboard/include",
-                    "/home/raphael/Dev/school/spl-pixelboard/src",
-                    "/home/raphael/Dev/school/spl-pixelboard/.pio/libdeps/esp32/FastLED/src",
+                    "/home/raphael/Dev/leon-pixelboard/include",
+                    "/home/raphael/Dev/leon-pixelboard/src",
+                    "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
+                    "/home/raphael/Dev/leon-pixelboard/.pio/libdeps/esp32/FastLED/src",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
@@ -473,7 +474,6 @@
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
-                    "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                     "/home/raphael/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
