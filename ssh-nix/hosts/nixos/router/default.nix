@@ -14,7 +14,7 @@
   ];
 
   hostSpec = {
-    hostName = "vm";
+    hostName = "router";
     hostPlatform = "x86_64-linux";
     locale = "en_US.UTF-8";
     timezone = "Europe/Vienna";
