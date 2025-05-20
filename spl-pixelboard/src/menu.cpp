@@ -8,7 +8,7 @@ void Menu(void *pvParameters) {
   PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
 
   while (1) {
-    pb->display.print("test");
+    // pb->display.print("test");
     vTaskDelay(pdMS_TO_TICKS(10));
   }
 }

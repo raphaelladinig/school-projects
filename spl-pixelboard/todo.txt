@@ -1,3 +1,3 @@
 - fix nvim setup WiFi autocompletion
-- font libary & menu task
 - mqtt snake steuern fur greini (leon)
+- font libary & menu task
