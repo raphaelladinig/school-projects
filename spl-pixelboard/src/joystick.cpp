@@ -11,16 +11,16 @@ void Joystick::update() {
     currentX = analogRead(analogPinX);
     currentY = analogRead(analogPinY);
 
-    if (currentX > 2500) {
+    if (currentX > 2250) {
         if (currentDirection != UP)
             currentDirection = DOWN;
-    } else if (currentX < 1500) {
+    } else if (currentX < 1750) {
         if (currentDirection != DOWN)
             currentDirection = UP;
-    } else if (currentY > 2500) {
+    } else if (currentY > 2250) {
         if (currentDirection != RIGHT)
             currentDirection = LEFT;
-    } else if (currentY < 1500) {
+    } else if (currentY < 1750) {
         if (currentDirection != LEFT)
             currentDirection = RIGHT;
     } else {
