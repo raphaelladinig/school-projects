@@ -1,17 +1,17 @@
 default:
-  @just --list
+    @just --list
 
 upload:
 	pio run -t upload
 
 test:
-  pio test
+    pio test
 
 build:
-	pio run
+    pio run
 
 compileCommands:
-	pio run -t compiledb
+    rm compile_commands.json ; pio run -t compiledb -v
 
 serial-monitor:
-  pio device monitor
+    pio device monitor
