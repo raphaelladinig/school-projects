@@ -13,6 +13,8 @@ const CRGB FOOD_COLOR = CRGB::Blue;
 const CRGB BACKGROUND_COLOR = CRGB::Black;
 const CRGB WALL_COLOR = CRGB::Red;
 
+static const unsigned long HUE_INTERVAL = 5;
+
 void generateFood(int &foodX, int &foodY,
                   const list<pair<int, int>> &snakeBody) {
     do {
@@ -29,6 +31,9 @@ void Snake(void *pvParameters) {
 
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
     bool wasSuspended = false;
+
+    static uint8_t snakeHue = 0;
+    static unsigned long lastHueUpdate = 0;
 
     while (true) {
         list<pair<int, int>> snakeBody;
@@ -63,6 +68,12 @@ void Snake(void *pvParameters) {
                 wasSuspended[1] = false;
                 pb->setWasSuspended(wasSuspended);
                 break;
+            }
+
+            unsigned long now = millis();
+            if (now - lastHueUpdate >= HUE_INTERVAL) {
+                lastHueUpdate = now;
+                snakeHue++;
             }
 
             pb->joystick.update();
@@ -133,7 +144,8 @@ void Snake(void *pvParameters) {
                     gameOver = true;
                     break;
                 }
-
+                
+                CRGB dynColor = CHSV(snakeHue, 255, 255);
                 snakeHeadX = nextHeadX;
                 snakeHeadY = nextHeadY;
 
@@ -150,7 +162,8 @@ void Snake(void *pvParameters) {
                     pb->display.setLed(tail.first, tail.second,
                                        BACKGROUND_COLOR);
                 }
-                pb->display.setLed(snakeHeadX, snakeHeadY, SNAKE_COLOR);
+                pb->display.setLed(snakeHeadX, snakeHeadY, dynColor);
+
                 pb->display.setLed(foodX, foodY, FOOD_COLOR);
 
                 previousFoodX = foodX;
