@@ -16,9 +16,10 @@ class Joystick : public Button {
   public:
     Joystick(int buttonPin, int xPin, int yPin);
     void update() override;
-    int getX() const;
-    int getY() const;
-    Direction getCurrentDirection() const;
+    int getX();
+    int getY();
+    Direction getCurrentDirection();
+    void setCurrentDirection(Direction direction);
 };
 
 #endif

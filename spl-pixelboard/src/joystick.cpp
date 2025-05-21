@@ -28,8 +28,12 @@ void Joystick::update() {
     }
 }
 
-int Joystick::getX() const { return currentX; }
+int Joystick::getX() { return currentX; }
 
-int Joystick::getY() const { return currentY; }
+int Joystick::getY() { return currentY; }
 
-Direction Joystick::getCurrentDirection() const { return currentDirection; }
+Direction Joystick::getCurrentDirection() { return currentDirection; }
+
+void Joystick::setCurrentDirection(Direction direction) {
+    currentDirection = direction;
+}

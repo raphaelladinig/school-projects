@@ -50,6 +50,8 @@ void Snake(void *pvParameters) {
         int previousSnakeHeadX = -1;
         int previousSnakeHeadY = -1;
 
+        pb->mqtt->subscribe("snake/input_direction");
+
         for (int i = 0; i < snakeLength; ++i) {
             snakeBody.push_back({snakeHeadX - i, snakeHeadY});
         }
@@ -144,7 +146,7 @@ void Snake(void *pvParameters) {
                     gameOver = true;
                     break;
                 }
-                
+
                 CRGB dynColor = CHSV(snakeHue, 255, 255);
                 snakeHeadX = nextHeadX;
                 snakeHeadY = nextHeadY;

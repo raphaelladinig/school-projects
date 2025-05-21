@@ -1,4 +1,2 @@
-- mergen
-- mqtt snake steuern fur greini (leon)
-- font scrolling
+- mqtt fixen weil leon gebloatet hat connect func und dann so eigenes mqtt dir attr
 - menu task
