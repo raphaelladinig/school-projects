@@ -1,15 +1,16 @@
 #ifndef DISPLAY_HPP
 #define DISPLAY_HPP
 
-#include <FastLED.h>
 #include <Arduino.h>
+#include <FastLED.h>
 
 class Display {
   public:
     Display(int leds1_pin, int leds2_pin);
     void setLed(int x, int y, CRGB color);
     void clear();
-    void print(String s);
+    void show();
+    void print(String s, int y = 4, int x = 0);
 
   private:
     int getLed(int x, int y);

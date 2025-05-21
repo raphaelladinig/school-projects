@@ -25,8 +25,8 @@ Display::Display(int leds1_pin, int leds2_pin)
     }
 
     FastLED.setBrightness(50);
-    FastLED.clear(true);
-    FastLED.show();
+    clear();
+    show();
 }
 
 int Display::getLed(int x, int y) {
@@ -47,32 +47,35 @@ void Display::setLed(int x, int y, CRGB color) {
     } else {
         leds2[getLed(x, y - 8)] = color;
     }
-    FastLED.show();
+    show();
 }
 
 void Display::clear() { FastLED.clear(true); }
 
-void Display::print(String s) {
+void Display::show() { FastLED.show(); }
+
+void Display::print(String s, int y, int x) {
     clear();
-    int x = 0;
-    int y = 4; // Center vertically in the 16-pixel height display
-    
+
+    y = y;
+    x = x;
+
     for (int i = 0; i < s.length(); i++) {
-        const uint8_t* charData = getCharData(s[i]);
-        
-        // Draw each column of the character
+        const uint8_t *charData = getCharData(s[i]);
+
         for (int col = 0; col < 5; col++) {
-            if (x + col >= 32) break; // Don't draw beyond display width
-            
-            // Draw each pixel in the column
             for (int row = 0; row < 7; row++) {
-                if (charData[row] & (0x10 >> col)) { // Check if pixel should be lit
+                if (charData[col] & (1 << (6 - row))) {
                     setLed(x + col, y + row, CRGB::White);
                 }
             }
         }
-        
-        x += 6; // Move to next character position (5 pixels + 1 pixel spacing)
-        if (x >= 32) break; // Stop if we've reached the end of the display
+
+        x += 6;
+
+        if (x >= 32)
+            break;
     }
+
+    show();
 }

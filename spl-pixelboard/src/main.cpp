@@ -22,14 +22,6 @@ vector<TaskHandle_t> tasks;
 
 void setup() {
     Serial.begin(115200);
-    while (!Serial) {
-        ;
-    }
-    
-    while (Serial.available()) {
-        Serial.read();
-    }
-    
     Serial.println("\n\n[Setup] Starting initialization...");
 
     PixelBoard *pixelboard =
@@ -54,6 +46,8 @@ void setup() {
     
     tasks = {MenuHandle, SnakeHandle};
     pixelboardPtr->tasks = tasks;
+
+    pixelboard->display.clear();
 
     Serial.println("[Setup] Initialization complete");
 }

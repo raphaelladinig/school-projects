@@ -29,7 +29,7 @@ void Snake(void *pvParameters) {
 
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
     bool wasSuspended = false;
-    
+
     while (true) {
         list<pair<int, int>> snakeBody;
         int snakeLength = SNAKE_START_LENGTH;
@@ -55,6 +55,8 @@ void Snake(void *pvParameters) {
         }
         pb->display.setLed(foodX, foodY, FOOD_COLOR);
 
+        pb->display.show();
+
         while (!gameOver) {
             vector<bool> wasSuspended = pb->getWasSuspended();
             if (wasSuspended[1] == true) {
@@ -68,13 +70,13 @@ void Snake(void *pvParameters) {
             if (direction == NONE) {
                 direction = previousDirection;
             }
-            
+
             if (millis() - lastMoveTime >= GAME_SPEED_DELAY) {
                 lastMoveTime = millis();
-                
+
                 int nextHeadX = snakeHeadX;
                 int nextHeadY = snakeHeadY;
-                
+
                 Direction newDirection = direction;
                 if (direction == NONE) {
                     newDirection = previousDirection;
@@ -86,7 +88,7 @@ void Snake(void *pvParameters) {
                         newDirection = previousDirection;
                     }
                 }
-                
+
                 switch (newDirection) {
                 case DOWN:
                     previousDirection = DOWN;
@@ -120,12 +122,13 @@ void Snake(void *pvParameters) {
                 // Check collision with snake body
                 bool collision = false;
                 for (const auto &segment : snakeBody) {
-                    if (segment.first == nextHeadX && segment.second == nextHeadY) {
+                    if (segment.first == nextHeadX &&
+                        segment.second == nextHeadY) {
                         collision = true;
                         break;
                     }
                 }
-                
+
                 if (collision) {
                     gameOver = true;
                     break;
@@ -133,9 +136,9 @@ void Snake(void *pvParameters) {
 
                 snakeHeadX = nextHeadX;
                 snakeHeadY = nextHeadY;
-            
+
                 snakeBody.push_front({snakeHeadX, snakeHeadY});
-            
+
                 if (snakeHeadX == foodX && snakeHeadY == foodY) {
                     snakeLength++;
                     generateFood(foodX, foodY, snakeBody);
@@ -144,45 +147,50 @@ void Snake(void *pvParameters) {
                 } else {
                     pair<int, int> tail = snakeBody.back();
                     snakeBody.pop_back();
-                    pb->display.setLed(tail.first, tail.second, BACKGROUND_COLOR);
+                    pb->display.setLed(tail.first, tail.second,
+                                       BACKGROUND_COLOR);
                 }
                 pb->display.setLed(snakeHeadX, snakeHeadY, SNAKE_COLOR);
                 pb->display.setLed(foodX, foodY, FOOD_COLOR);
-            
+
                 previousFoodX = foodX;
                 previousFoodY = foodY;
                 previousSnakeHeadX = snakeHeadX;
                 previousSnakeHeadY = snakeHeadY;
             }
 
+            pb->display.show();
+
             vTaskDelay(pdMS_TO_TICKS(10));
         }
 
         vector<pair<int, int>> deathAnimation;
-        if (gameOver) {  
+        if (gameOver) {
             pb->display.clear();
-            
+
             for (const auto &segment : snakeBody) {
                 deathAnimation.push_back(segment);
             }
-            
+
             for (int i = 0; i < 3; i++) {
                 for (const auto &segment : deathAnimation) {
-                    pb->display.setLed(segment.first, segment.second, WALL_COLOR);
+                    pb->display.setLed(segment.first, segment.second,
+                                       WALL_COLOR);
                 }
                 vTaskDelay(pdMS_TO_TICKS(200));
                 for (const auto &segment : deathAnimation) {
-                    pb->display.setLed(segment.first, segment.second, BACKGROUND_COLOR);
+                    pb->display.setLed(segment.first, segment.second,
+                                       BACKGROUND_COLOR);
                 }
                 vTaskDelay(pdMS_TO_TICKS(200));
             }
         }
 
         pb->display.clear();
-        
+
         snakeBody.clear();
         deathAnimation.clear();
-        
+
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }

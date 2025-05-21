@@ -1,2 +1,4 @@
+- mergen
 - mqtt snake steuern fur greini (leon)
-- font libary & menu task
+- font scrolling
+- menu task
