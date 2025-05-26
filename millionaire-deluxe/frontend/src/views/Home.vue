@@ -9,26 +9,6 @@
     </section>
 
     <section>
-      <h2>Create User</h2>
-    </section>
-
-    <section>
-      <h2>Delete User</h2>
-    </section>
-
-    <section>
-      <h2>All Users</h2>
-    </section>
-
-    <section>
-      <h2>Create Question</h2>
-    </section>
-
-    <section>
-      <h2>Delete Question</h2>
-    </section>
-
-    <section>
       <h2>All Questions</h2>
       <button @click="fetchAllQuestions">Load All Questions</button>
       <ul v-if="allQuestions && allQuestions.length">
