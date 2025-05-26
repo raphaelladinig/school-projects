@@ -10,6 +10,8 @@ namespace mvc
             builder.Services.AddDbContext<DbManager>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession();
+            builder.Services.AddSignalR();
+            builder.Services.AddDistributedMemoryCache();
 
             var app = builder.Build();
             if (!app.Environment.IsDevelopment())
@@ -26,6 +28,7 @@ namespace mvc
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}"
             );
+            app.MapHub<ChatHub>("/chatHub");
 
             app.Run();
         }
