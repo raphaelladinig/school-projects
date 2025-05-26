@@ -40,7 +40,7 @@
     .matrix-canvas {
         width: 20vw;
         height: 100%;
-        display: block;
+        display: block;Gib deine Nachricht ein und drück Enter...
     }
 
     .matrix-canvas.left {
@@ -109,6 +109,7 @@
         color: #000;
     }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script>
     const matrixCanvases = document.querySelectorAll(".matrix-canvas");
 
@@ -138,5 +139,48 @@
         }
 
         setInterval(drawMatrixRain, 33);
+    });
+
+    const username = "@username";
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatHub")
+        .build();
+
+    connection.on("ReceiveMessage", function (user, message) {
+        const li = document.createElement("li");
+        li.innerHTML = <span style='color:#0f0;'>>> </span><strong>${user}</strong>: ${message};
+        document.getElementById("messages").appendChild(li);
+        document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+    });
+
+    connection.start().then(() => {
+        console.log("[Connected to ChatHub]");
+    }).catch(err => console.error(err.toString()));
+
+    function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const text = input.value.trim();
+        if (!text) return;
+
+        connection.invoke("SendMessage", username, text).catch(err => console.error(err.toString()));
+        input.value = "";
+        input.focus();
+
+        const synth = new SpeechSynthesisUtterance("message sent");
+        synth.pitch = 2;
+        synth.rate = 1.5;
+        synth.volume = 0.4;
+        speechSynthesis.speak(synth);
+    }
+
+    document.getElementById("messageInput").addEventListener("keyup", function (e) {
+        if (e.key === "Enter") sendMessage();
+        if (this.value === "/hack") {
+            const li = document.createElement("li");
+            li.innerHTML = <pre style="color:red;">[ACCESSING 🔐]\n█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ 10%</pre>;
+            document.getElementById("messages").appendChild(li);
+            this.value = "";
+        }
     });
 </script>
