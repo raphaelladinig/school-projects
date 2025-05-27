@@ -25,6 +25,9 @@ class PixelBoard {
     vector<bool> getWasSuspended();
     void setWasSuspended(vector<bool> v);
     vector<TaskHandle_t> getTasks();
+    void updateMqttDiretion();
+    Direction getMqttDirection();
+    void setMqttDirection(Direction direction);
 
   private:
     int leds1_pin;
@@ -32,6 +35,9 @@ class PixelBoard {
     int joystick_pin;
     const char *ssid;
     const char *password;
+    Direction mqttDirection;
 };
+
+void onCallback(char *topic, byte *payload, unsigned int length);
 
 #endif

@@ -1,5 +1,7 @@
 #include "snake.hpp"
+#include "joystick.hpp"
 #include "pixelboard.hpp"
+#include <ctime>
 #include <list>
 
 using namespace std;
@@ -50,8 +52,6 @@ void Snake(void *pvParameters) {
         int previousSnakeHeadX = -1;
         int previousSnakeHeadY = -1;
 
-        pb->mqtt->subscribe("snake/input_direction");
-
         for (int i = 0; i < snakeLength; ++i) {
             snakeBody.push_back({snakeHeadX - i, snakeHeadY});
         }
@@ -78,8 +78,15 @@ void Snake(void *pvParameters) {
                 snakeHue++;
             }
 
-            pb->joystick.update();
-            direction = pb->joystick.getCurrentDirection();
+            pb->updateMqttDiretion();
+            Direction tmp = pb->getMqttDirection();
+            if (tmp != NONE) {
+                direction = tmp;
+            } else {
+                pb->joystick.update();
+                direction = pb->joystick.getCurrentDirection();
+            }
+
             if (direction == NONE) {
                 direction = previousDirection;
             }

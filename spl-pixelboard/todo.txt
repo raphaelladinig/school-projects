@@ -1,2 +1,1 @@
-- mqtt fixen weil leon gebloatet hat connect func und dann so eigenes mqtt dir attr
 - menu task

@@ -18,12 +18,6 @@ const int mqtt_port = 8883;
 const char *ssid = "pixel";
 const char *password = "password";
 
-TaskHandle_t MenuHandle = NULL;
-TaskHandle_t SnakeHandle = NULL;
-TaskHandle_t taskSwitcherHandle = NULL;
-PixelBoard *pixelboardPtr;
-vector<TaskHandle_t> tasks;
-
 void setup() {
     Serial.begin(115200);
     Serial.println("\n\n[Setup] Starting initialization...");
@@ -32,25 +26,26 @@ void setup() {
         LEDS1_PIN, LEDS2_PIN, JOYSTICK_BUTTON_PIN, JOYSTICK_X_PIN,
         JOYSTICK_Y_PIN, ssid, password, vector<TaskHandle_t>(), {false, false},
         mqtt_user, mqtt_password, mqtt_port, mqtt_host);
-    pixelboardPtr = pixelboard;
 
-    Serial.println("[Setup] Connecting to WiFi...");
-    pixelboard->wifi.begin();
+    TaskHandle_t MenuHandle = NULL;
+    TaskHandle_t SnakeHandle = NULL;
+    TaskHandle_t taskSwitcherHandle = NULL;
+    vector<TaskHandle_t> tasks;
 
     Serial.println("[Setup] Creating tasks...");
-    xTaskCreate(Menu, "Menu", 10000, pixelboardPtr, 1, &MenuHandle);
+    xTaskCreate(Menu, "Menu", 10000, pixelboard, 1, &MenuHandle);
     vTaskSuspend(MenuHandle);
     delay(10);
 
-    xTaskCreate(Snake, "Snake", 10000, pixelboardPtr, 1, &SnakeHandle);
+    xTaskCreate(Snake, "Snake", 10000, pixelboard, 1, &SnakeHandle);
     vTaskSuspend(SnakeHandle);
     delay(10);
 
-    xTaskCreate(TaskSwitcher, "TaskSwitcher", 10000, pixelboardPtr, 1,
+    xTaskCreate(TaskSwitcher, "TaskSwitcher", 10000, pixelboard, 1,
                 &taskSwitcherHandle);
 
     tasks = {MenuHandle, SnakeHandle};
-    pixelboardPtr->tasks = tasks;
+    pixelboard->tasks = tasks;
 
     pixelboard->display.clear();
 
