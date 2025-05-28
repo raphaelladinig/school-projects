@@ -3,15 +3,16 @@
 #include <Arduino.h>
 
 void Menu(void *pvParameters) {
-    vTaskDelay(pdMS_TO_TICKS(100));
+    vTaskDelay(pdMS_TO_TICKS(500));
 
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
     bool wasSuspended = false;
 
     while (true) {
         pb->display.rectangle(5, 5, CRGB::Red, false);
+        bool t = false;
 
-        while (true) {
+        while (!t) {
             if (pb->wasSuspended[0] == true) {
                 pb->wasSuspended[0] = false;
                 break;

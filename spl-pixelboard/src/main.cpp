@@ -37,6 +37,7 @@ void setup() {
     vector<TaskHandle_t> tasks;
 
     Serial.println("[Setup] Creating tasks");
+
     xTaskCreate(Menu, "Menu", 10000, pixelboard, 1, &MenuHandle);
     vTaskSuspend(MenuHandle);
     delay(10);
@@ -45,11 +46,10 @@ void setup() {
     vTaskSuspend(SnakeHandle);
     delay(10);
 
-    xTaskCreate(System, "System", 10000, pixelboard, 1,
-                &systemHandle);
-
     tasks = {MenuHandle, SnakeHandle};
     pixelboard->tasks = tasks;
+
+    xTaskCreate(System, "System", 10000, pixelboard, 1, &systemHandle);
 
     pixelboard->display.clear();
 

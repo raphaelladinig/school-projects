@@ -29,7 +29,7 @@ void generateFood(int &foodX, int &foodY,
 }
 
 void Snake(void *pvParameters) {
-    vTaskDelay(pdMS_TO_TICKS(100));
+    vTaskDelay(pdMS_TO_TICKS(500));
 
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
     bool wasSuspended = false;

@@ -1,5 +1,6 @@
 #include "system.hpp"
 #include "HardwareSerial.h"
+#include "esp32-hal.h"
 #include "pixelboard.hpp"
 #include <Arduino.h>
 #include <vector>
@@ -30,11 +31,13 @@ void System(void *pvParameters) {
         pb->joystick.update();
 
         if (millis() - lastCheckTime >= 50) {
-            if (pb->joystick.wasLongPressed()) {
+            if (pb->joystick.wasPressed()) {
                 vTaskSuspend(tasks[activeTask]);
                 pb->wasSuspended[activeTask] = true;
                 activeTask = (activeTask + 1) % tasks.size();
+                delay(100);
                 pb->display.clear();
+                Serial.print("clear");
                 vTaskResume(tasks[activeTask]);
             }
 

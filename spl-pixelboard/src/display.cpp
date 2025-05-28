@@ -83,7 +83,7 @@ void Display::print(String s, int y, int x) {
 }
 
 void Display::rectangle(int w, int h, CRGB color, bool fill, int x, int y) {
-    if (x < 0 || y < 0 || x + w > 32 || y + h > 16) {
+    if ((x < 0) || (y < 0) || (x + w > 32) || (y + h > 16)) {
         return;
     }
 

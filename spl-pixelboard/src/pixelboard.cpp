@@ -15,17 +15,17 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
       joystick(joystick_pin, joystickX_pin, joystickY_pin),
       wifi(ssid, password), tasks(tasks), wasSuspended(wasSuspended),
       mqtt(mqtt_user, mqtt_password, mqtt_port, mqtt_host), dht(dht_pin, dht_type) {
-    wifi.begin();
-
-    ntp.begin();
-    ntp.printLocalTime();
-
-    mqtt.connect(onCallback);
-    mqtt.subscribe("snake/input_direction");
-
-    weather.printWeather();
-    dht.printTemperature();
-    dht.printHumidity();
+    // wifi.begin();
+    //
+    // ntp.begin();
+    // ntp.printLocalTime();
+    //
+    // mqtt.connect(onCallback);
+    // mqtt.subscribe("snake/input_direction");
+    //
+    // weather.printWeather();
+    // dht.printTemperature();
+    // dht.printHumidity();
 }
 
 Direction mqttDirectionTmp = NONE;
