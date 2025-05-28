@@ -1,1 +1,2 @@
+- weather, ntp
 - menu task

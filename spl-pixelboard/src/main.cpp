@@ -1,8 +1,9 @@
 #include "HardwareSerial.h"
+#include "esp32-hal.h"
 #include "menu.hpp"
 #include "pixelboard.hpp"
 #include "snake.hpp"
-#include "task_switcher.hpp"
+#include "system.hpp"
 #include <Arduino.h>
 
 #define LEDS1_PIN 25
@@ -20,7 +21,8 @@ const char *password = "password";
 
 void setup() {
     Serial.begin(115200);
-    Serial.println("\n\n[Setup] Starting initialization...");
+    delay(2000);
+    Serial.println("\n\n[Setup] Starting initialization");
 
     PixelBoard *pixelboard = new PixelBoard(
         LEDS1_PIN, LEDS2_PIN, JOYSTICK_BUTTON_PIN, JOYSTICK_X_PIN,
@@ -29,10 +31,10 @@ void setup() {
 
     TaskHandle_t MenuHandle = NULL;
     TaskHandle_t SnakeHandle = NULL;
-    TaskHandle_t taskSwitcherHandle = NULL;
+    TaskHandle_t systemHandle = NULL;
     vector<TaskHandle_t> tasks;
 
-    Serial.println("[Setup] Creating tasks...");
+    Serial.println("[Setup] Creating tasks");
     xTaskCreate(Menu, "Menu", 10000, pixelboard, 1, &MenuHandle);
     vTaskSuspend(MenuHandle);
     delay(10);
@@ -41,8 +43,8 @@ void setup() {
     vTaskSuspend(SnakeHandle);
     delay(10);
 
-    xTaskCreate(TaskSwitcher, "TaskSwitcher", 10000, pixelboard, 1,
-                &taskSwitcherHandle);
+    xTaskCreate(System, "System", 10000, pixelboard, 1,
+                &systemHandle);
 
     tasks = {MenuHandle, SnakeHandle};
     pixelboard->tasks = tasks;

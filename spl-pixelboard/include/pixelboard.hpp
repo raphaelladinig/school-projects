@@ -19,7 +19,7 @@ class PixelBoard {
     Display display;
     Joystick joystick;
     WiFiManager wifi;
-    MqttManager *mqtt;
+    MqttManager mqtt;
     vector<TaskHandle_t> tasks;
     vector<bool> wasSuspended;
     vector<bool> getWasSuspended();

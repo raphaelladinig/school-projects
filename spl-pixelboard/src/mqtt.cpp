@@ -4,13 +4,36 @@
 #include <WiFiClientSecure.h>
 
 MqttManager::MqttManager(const char *user, const char *pass, int port,
-                         const char *host, PubSubClient client)
-    : user(user), password(pass), port(port), host(host), client(client) {}
+                         const char *host)
+    : user(user), password(pass), port(port), host(host) {
+    static WiFiClientSecure secureClient;
+    static PubSubClient mqttClient(secureClient);
+    secureClient.setInsecure();
+    client = secureClient;
+}
 
 void MqttManager::connect(void callbackfunction(char *, byte *, unsigned int)) {
     client.setServer(host, port);
-    client.connect("1", user, password);
+    while (!client.connected()) {
+        Serial.println("[MqttManager] Connecting to MQTT");
+
+        if (client.connect("1", user, password)) {
+            Serial.println("[MqttManager] Connected");
+        } else {
+            Serial.print("[MqttManager] Error: ");
+            Serial.println(client.state());
+        }
+        delay(500);
+    }
     client.setCallback(callbackfunction);
 }
 
-void MqttManager::subscribe(const char *topic) { client.subscribe(topic); }
+void MqttManager::subscribe(const char *topic) {
+    if (client.subscribe(topic)) {
+        Serial.print("[MqttManager] Subscribed to topic ");
+        Serial.println(topic);
+    } else {
+        Serial.print("[MqttManager] Failed to subscribe to topic ");
+        Serial.println(topic);
+    }
+}

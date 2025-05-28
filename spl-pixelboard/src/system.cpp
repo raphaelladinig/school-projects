@@ -1,12 +1,12 @@
-#include "task_switcher.hpp"
 #include "HardwareSerial.h"
+#include "system.hpp"
 #include "pixelboard.hpp"
 #include <Arduino.h>
 #include <vector>
 
 using namespace std;
 
-void TaskSwitcher(void *pvParameters) {
+void System(void *pvParameters) {
     vTaskDelay(pdMS_TO_TICKS(100));
 
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
@@ -44,12 +44,14 @@ void TaskSwitcher(void *pvParameters) {
         }
 
         if (lastActiveTask != activeTask) {
-            Serial.print("[TaskSwitcher] Switching from Task ");
+            Serial.print("[System] Switching from Task ");
             Serial.print(lastActiveTask);
             Serial.print(" to Task ");
             Serial.println(activeTask);
             lastActiveTask = activeTask;
         }
+
+        pb->mqtt.client.loop();
 
         vTaskDelay(pdMS_TO_TICKS(50));
     }

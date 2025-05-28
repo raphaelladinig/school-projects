@@ -13,27 +13,31 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
                        const char *mqtt_host)
     : display(leds1_pin, leds2_pin),
       joystick(joystick_pin, joystickX_pin, joystickY_pin),
-      wifi(ssid, password), tasks(tasks), wasSuspended(wasSuspended) {
-    Serial.println("[Pixelboard] Connecting to WiFi...");
+      wifi(ssid, password), tasks(tasks), wasSuspended(wasSuspended),
+      mqtt(mqtt_user, mqtt_password, mqtt_port, mqtt_host) {
+    Serial.println("[Pixelboard] Connecting to WiFi");
     wifi.begin();
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("\n[Pixelboard] WiFi connected");
 
-    Serial.println("[Pixelboard] Setting up Mqtt...");
-    static WiFiClientSecure secureClient;
-    static PubSubClient mqttClient(secureClient);
-    secureClient.setInsecure();
-    mqtt = new MqttManager(mqtt_user, mqtt_password, mqtt_port, mqtt_host,
-                           secureClient);
-    mqtt->connect(onCallback);
-    mqtt->subscribe("snake/input_direction");
+    Serial.println("[Pixelboard] Setting up MQTT");
+    mqtt.connect(onCallback);
+    mqtt.subscribe("snake/input_direction");
 }
 
 Direction mqttDirectionTmp = NONE;
 
 void onCallback(char *topic, byte *payload, unsigned int length) {
+    Serial.printf("[Pixelboard] Message arrived [%s]: ", topic);
     String message;
     for (int i = 0; i < length; i++) {
         message += (char)payload[i];
     }
+
+    Serial.println(message);
 
     if (String(topic) == "snake/input_direction") {
         if (message == "UP") {

@@ -15,3 +15,5 @@ compileCommands:
 
 serial-monitor:
     pio device monitor
+
+um: upload serial-monitor
