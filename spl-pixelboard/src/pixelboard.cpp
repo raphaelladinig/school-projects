@@ -53,5 +53,3 @@ void onCallback(char *topic, byte *payload, unsigned int length) {
 }
 
 void PixelBoard::updateMqttDiretion() { mqttDirection = mqttDirectionTmp; }
-
-vector<TaskHandle_t> PixelBoard::getTasks() { return tasks; }

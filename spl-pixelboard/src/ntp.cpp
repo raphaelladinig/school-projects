@@ -39,6 +39,7 @@ void Ntp::printLocalTime() {
         Serial.println("[Ntp] Failed to obtain time");
         return;
     }
+    Serial.print("[Ntp] ");
     Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
 }
 

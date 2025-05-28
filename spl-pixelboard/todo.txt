@@ -1,5 +1,4 @@
 - menu task (leon)
-- fix getter and setter & log messages
 - draw rectangle func
 - dht
 - laufschrift

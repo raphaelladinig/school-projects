@@ -28,7 +28,6 @@ class PixelBoard {
     void updateMqttDiretion();
     Direction mqttDirection;
     vector<TaskHandle_t> tasks;
-    vector<TaskHandle_t> getTasks();
 
   private:
     const char *ssid;

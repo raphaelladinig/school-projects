@@ -10,7 +10,7 @@ void System(void *pvParameters) {
     vTaskDelay(pdMS_TO_TICKS(100));
 
     PixelBoard *pb = static_cast<PixelBoard *>(pvParameters);
-    vector<TaskHandle_t> tasks = pb->getTasks();
+    vector<TaskHandle_t> tasks = pb->tasks;
 
     int activeTask = 0;
     int lastActiveTask = activeTask;
@@ -18,7 +18,7 @@ void System(void *pvParameters) {
 
     vTaskDelay(pdMS_TO_TICKS(100));
 
-    for (size_t i = 0; i < pb->tasks.size(); i++) {
+    for (size_t i = 0; i < tasks.size(); i++) {
         if (i == activeTask) {
             vTaskResume(tasks[i]);
         } else {
