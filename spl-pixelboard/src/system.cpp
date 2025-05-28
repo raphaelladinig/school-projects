@@ -30,7 +30,7 @@ void System(void *pvParameters) {
         pb->joystick.update();
 
         if (millis() - lastCheckTime >= 50) {
-            if (pb->joystick.wasPressed()) {
+            if (pb->joystick.wasLongPressed()) {
                 vTaskSuspend(tasks[activeTask]);
                 pb->wasSuspended[activeTask] = true;
                 activeTask = (activeTask + 1) % tasks.size();

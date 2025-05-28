@@ -1,6 +1,7 @@
 #ifndef PIXELBOARD_HPP
 #define PIXELBOARD_HPP
 
+#include "dht_sensor.hpp"
 #include "display.hpp"
 #include "joystick.hpp"
 #include "mqtt.hpp"
@@ -17,13 +18,15 @@ class PixelBoard {
                int joystickX_pin, int joystickY_pin, const char *ssid,
                const char *password, vector<TaskHandle_t> tasks,
                vector<bool> wasSuspended, const char *mqtt_user,
-               const char *mqtt_password, int mqtt_port, const char *mqtt_host);
+               const char *mqtt_password, int mqtt_port, const char *mqtt_host,
+               int dht_pin, int dht_type);
     Display display;
     Joystick joystick;
     WiFiManager wifi;
     MqttManager mqtt;
     Ntp ntp;
     Weather weather;
+    DhtSensor dht;
     vector<bool> wasSuspended;
     void updateMqttDiretion();
     Direction mqttDirection;

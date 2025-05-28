@@ -11,6 +11,8 @@
 #define JOYSTICK_BUTTON_PIN 32
 #define JOYSTICK_X_PIN 34
 #define JOYSTICK_Y_PIN 35
+#define DHT_PIN 21
+#define DHT_TYPE DHT22
 
 const char *mqtt_user = "snake";
 const char *mqtt_password = "tre]:7T\"gm:TZ5a";
@@ -27,7 +29,7 @@ void setup() {
     PixelBoard *pixelboard = new PixelBoard(
         LEDS1_PIN, LEDS2_PIN, JOYSTICK_BUTTON_PIN, JOYSTICK_X_PIN,
         JOYSTICK_Y_PIN, ssid, password, vector<TaskHandle_t>(), {false, false},
-        mqtt_user, mqtt_password, mqtt_port, mqtt_host);
+        mqtt_user, mqtt_password, mqtt_port, mqtt_host, DHT_PIN, DHT_TYPE);
 
     TaskHandle_t MenuHandle = NULL;
     TaskHandle_t SnakeHandle = NULL;

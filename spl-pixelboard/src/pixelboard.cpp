@@ -10,11 +10,11 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
                        const char *password, vector<TaskHandle_t> tasks,
                        vector<bool> wasSuspended, const char *mqtt_user,
                        const char *mqtt_password, int mqtt_port,
-                       const char *mqtt_host)
+                       const char *mqtt_host, int dht_pin, int dht_type)
     : display(leds1_pin, leds2_pin),
       joystick(joystick_pin, joystickX_pin, joystickY_pin),
       wifi(ssid, password), tasks(tasks), wasSuspended(wasSuspended),
-      mqtt(mqtt_user, mqtt_password, mqtt_port, mqtt_host) {
+      mqtt(mqtt_user, mqtt_password, mqtt_port, mqtt_host), dht(dht_pin, dht_type) {
     wifi.begin();
 
     ntp.begin();
@@ -24,6 +24,8 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
     mqtt.subscribe("snake/input_direction");
 
     weather.printWeather();
+    dht.printTemperature();
+    dht.printHumidity();
 }
 
 Direction mqttDirectionTmp = NONE;
