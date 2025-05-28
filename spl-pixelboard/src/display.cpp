@@ -41,13 +41,15 @@ int Display::getLed(int x, int y) {
     return res;
 }
 
-void Display::setLed(int x, int y, CRGB color) {
+void Display::setLed(int x, int y, CRGB color, bool setShow) {
     if (y < 8) {
         leds1[getLed(31 - x, 7 - y)] = color;
     } else {
         leds2[getLed(x, y - 8)] = color;
     }
-    show();
+    if (setShow) {
+        show();
+    }
 }
 
 void Display::clear() { FastLED.clear(true); }

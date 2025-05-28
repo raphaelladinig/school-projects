@@ -7,7 +7,7 @@
 class Display {
   public:
     Display(int leds1_pin, int leds2_pin);
-    void setLed(int x, int y, CRGB color);
+    void setLed(int x, int y, CRGB color, bool setShow=true);
     void clear();
     void show();
     void print(String s, int y = 4, int x = 0);

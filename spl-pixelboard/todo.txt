@@ -1,2 +1,5 @@
-- weather, ntp
-- menu task
+- menu task (leon)
+- draw rectangle func
+- fix getter and setter & log messages
+- dht
+- laufschrift

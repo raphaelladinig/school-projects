@@ -1,5 +1,6 @@
 #include "pixelboard.hpp"
 #include "Arduino.h"
+#include "HardwareSerial.h"
 #include "WiFiClientSecure.h"
 #include "joystick.hpp"
 #include "mqtt.hpp"
@@ -23,9 +24,13 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
     }
     Serial.println("\n[Pixelboard] WiFi connected");
 
+    ntp.begin();
+
     Serial.println("[Pixelboard] Setting up MQTT");
     mqtt.connect(onCallback);
     mqtt.subscribe("snake/input_direction");
+    
+    weather.printWeather();
 }
 
 Direction mqttDirectionTmp = NONE;

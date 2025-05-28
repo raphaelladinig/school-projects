@@ -4,6 +4,8 @@
 #include "display.hpp"
 #include "joystick.hpp"
 #include "mqtt.hpp"
+#include "ntp.hpp"
+#include "weather.hpp"
 #include "wifi.hpp"
 #include <vector>
 
@@ -20,6 +22,8 @@ class PixelBoard {
     Joystick joystick;
     WiFiManager wifi;
     MqttManager mqtt;
+    Ntp ntp;
+    Weather weather;
     vector<TaskHandle_t> tasks;
     vector<bool> wasSuspended;
     vector<bool> getWasSuspended();
