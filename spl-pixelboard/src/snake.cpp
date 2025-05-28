@@ -65,10 +65,8 @@ void Snake(void *pvParameters) {
         pb->display.show();
 
         while (!gameOver) {
-            vector<bool> wasSuspended = pb->getWasSuspended();
-            if (wasSuspended[1] == true) {
-                wasSuspended[1] = false;
-                pb->setWasSuspended(wasSuspended);
+            if (pb->wasSuspended[1] == true) {
+                pb->wasSuspended[1] = false;
                 break;
             }
 
@@ -79,9 +77,8 @@ void Snake(void *pvParameters) {
             }
 
             pb->updateMqttDiretion();
-            Direction tmp = pb->getMqttDirection();
-            if (tmp != NONE) {
-                direction = tmp;
+            if (pb->mqttDirection != NONE) {
+                direction = pb->mqttDirection;
             } else {
                 pb->joystick.update();
                 direction = pb->joystick.getCurrentDirection();

@@ -24,22 +24,15 @@ class PixelBoard {
     MqttManager mqtt;
     Ntp ntp;
     Weather weather;
-    vector<TaskHandle_t> tasks;
     vector<bool> wasSuspended;
-    vector<bool> getWasSuspended();
-    void setWasSuspended(vector<bool> v);
-    vector<TaskHandle_t> getTasks();
     void updateMqttDiretion();
-    Direction getMqttDirection();
-    void setMqttDirection(Direction direction);
+    Direction mqttDirection;
+    vector<TaskHandle_t> tasks;
+    vector<TaskHandle_t> getTasks();
 
   private:
-    int leds1_pin;
-    int leds2_pin;
-    int joystick_pin;
     const char *ssid;
     const char *password;
-    Direction mqttDirection;
 };
 
 void onCallback(char *topic, byte *payload, unsigned int length);

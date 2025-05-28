@@ -12,10 +12,8 @@ void Menu(void *pvParameters) {
         pb->display.print("JULIAN");
 
         while (true) {
-            vector<bool> wasSuspended = pb->getWasSuspended();
-            if (wasSuspended[0] == true) {
-                wasSuspended[0] = false;
-                pb->setWasSuspended(wasSuspended);
+            if (pb->wasSuspended[0] == true) {
+                pb->wasSuspended[0] = false;
                 break;
             }
             vTaskDelay(pdMS_TO_TICKS(10));

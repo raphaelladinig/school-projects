@@ -1,5 +1,5 @@
-#include "HardwareSerial.h"
 #include "system.hpp"
+#include "HardwareSerial.h"
 #include "pixelboard.hpp"
 #include <Arduino.h>
 #include <vector>
@@ -18,7 +18,7 @@ void System(void *pvParameters) {
 
     vTaskDelay(pdMS_TO_TICKS(100));
 
-    for (size_t i = 0; i < tasks.size(); i++) {
+    for (size_t i = 0; i < pb->tasks.size(); i++) {
         if (i == activeTask) {
             vTaskResume(tasks[i]);
         } else {
@@ -32,9 +32,7 @@ void System(void *pvParameters) {
         if (millis() - lastCheckTime >= 50) {
             if (pb->joystick.wasPressed()) {
                 vTaskSuspend(tasks[activeTask]);
-                vector<bool> wasSuspended = pb->getWasSuspended();
-                wasSuspended[activeTask] = true;
-                pb->setWasSuspended(wasSuspended);
+                pb->wasSuspended[activeTask] = true;
                 activeTask = (activeTask + 1) % tasks.size();
                 pb->display.clear();
                 vTaskResume(tasks[activeTask]);

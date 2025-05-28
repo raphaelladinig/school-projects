@@ -3,7 +3,7 @@
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 
-MqttManager::MqttManager(const char *user, const char *pass, int port,
+MqttManager::MqttManager(const char *user, const char *pass, const int port,
                          const char *host)
     : user(user), password(pass), port(port), host(host) {
     static WiFiClientSecure secureClient;
@@ -14,9 +14,8 @@ MqttManager::MqttManager(const char *user, const char *pass, int port,
 
 void MqttManager::connect(void callbackfunction(char *, byte *, unsigned int)) {
     client.setServer(host, port);
+    Serial.println("[MqttManager] Connecting to MQTT Server...");
     while (!client.connected()) {
-        Serial.println("[MqttManager] Connecting to MQTT");
-
         if (client.connect("1", user, password)) {
             Serial.println("[MqttManager] Connected");
         } else {

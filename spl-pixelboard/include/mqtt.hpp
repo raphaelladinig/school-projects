@@ -14,8 +14,8 @@ class MqttManager {
   private:
     const char *user;
     const char *password;
-    int port;
     const char *host;
+    const int port;
 };
 
 #endif

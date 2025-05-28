@@ -11,7 +11,7 @@ const int   daylightOffset_sec = 3600;
 bool Ntp::begin() {
     configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
     
-    Serial.println("[NTP] Waiting for NTP time sync...");
+    Serial.println("[Ntp] Waiting for NTP time sync...");
     
     time_t now = 0;
     struct tm timeinfo;
@@ -19,24 +19,24 @@ bool Ntp::begin() {
     const int maxRetries = 10;
     
     while (!getLocalTime(&timeinfo) && retry < maxRetries) {
-        Serial.println("[NTP] Failed to obtain time, retrying...");
+        Serial.println("[Ntp] Failed to obtain time, retrying...");
         delay(1000);
         retry++;
     }
     
     if (retry >= maxRetries) {
-        Serial.println("[NTP] Failed to sync time after maximum retries");
+        Serial.println("[Ntp] Failed to sync time after maximum retries");
         return false;
     }
     
-    Serial.println("[NTP] Time synchronized successfully");
+    Serial.println("[Ntp] Time synchronized successfully");
     return true;
 }
 
 void Ntp::printLocalTime() {
     struct tm timeinfo;
     if(!getLocalTime(&timeinfo)){
-        Serial.println("[NTP] Failed to obtain time");
+        Serial.println("[Ntp] Failed to obtain time");
         return;
     }
     Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
@@ -45,7 +45,7 @@ void Ntp::printLocalTime() {
 bool Ntp::updateTime() {
     struct tm timeinfo;
     if(!getLocalTime(&timeinfo)){
-        Serial.println("[NTP] Failed to obtain time");
+        Serial.println("[Ntp] Failed to obtain time");
         return false;
     }
     return true;

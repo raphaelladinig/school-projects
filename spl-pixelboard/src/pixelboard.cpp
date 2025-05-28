@@ -1,7 +1,6 @@
 #include "pixelboard.hpp"
 #include "Arduino.h"
 #include "HardwareSerial.h"
-#include "WiFiClientSecure.h"
 #include "joystick.hpp"
 #include "mqtt.hpp"
 #include <vector>
@@ -16,20 +15,14 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
       joystick(joystick_pin, joystickX_pin, joystickY_pin),
       wifi(ssid, password), tasks(tasks), wasSuspended(wasSuspended),
       mqtt(mqtt_user, mqtt_password, mqtt_port, mqtt_host) {
-    Serial.println("[Pixelboard] Connecting to WiFi");
     wifi.begin();
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println("\n[Pixelboard] WiFi connected");
 
     ntp.begin();
+    ntp.printLocalTime();
 
-    Serial.println("[Pixelboard] Setting up MQTT");
     mqtt.connect(onCallback);
     mqtt.subscribe("snake/input_direction");
-    
+
     weather.printWeather();
 }
 
@@ -61,14 +54,4 @@ void onCallback(char *topic, byte *payload, unsigned int length) {
 
 void PixelBoard::updateMqttDiretion() { mqttDirection = mqttDirectionTmp; }
 
-void PixelBoard::setMqttDirection(Direction direction) {
-    mqttDirection = direction;
-}
-
-Direction PixelBoard::getMqttDirection() { return mqttDirection; }
-
 vector<TaskHandle_t> PixelBoard::getTasks() { return tasks; }
-
-vector<bool> PixelBoard::getWasSuspended() { return wasSuspended; }
-
-void PixelBoard::setWasSuspended(vector<bool> v) { wasSuspended = v; }
