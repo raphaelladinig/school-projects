@@ -68,7 +68,7 @@ void Display::print(String s, int y, int x) {
         for (int col = 0; col < 5; col++) {
             for (int row = 0; row < 7; row++) {
                 if (charData[col] & (1 << (6 - row))) {
-                    setLed(x + col, y + row, CRGB::White);
+                    setLed(x + col, y + row, CRGB::White, false);
                 }
             }
         }
@@ -77,6 +77,31 @@ void Display::print(String s, int y, int x) {
 
         if (x >= 32)
             break;
+    }
+
+    show();
+}
+
+void Display::rectangle(int w, int h, CRGB color, bool fill, int x, int y) {
+    if (x < 0 || y < 0 || x + w > 32 || y + h > 16) {
+        return;
+    }
+
+    if (fill) {
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                setLed(x + i, y + j, color, false);
+            }
+        }
+    } else {
+        for (int i = 0; i < w; i++) {
+            setLed(x + i, y, color, false);
+            setLed(x + i, y + h - 1, color, false);
+        }
+        for (int j = 0; j < h; j++) {
+            setLed(x, y + j, color, false);
+            setLed(x + w - 1, y + j, color, false);
+        }
     }
 
     show();

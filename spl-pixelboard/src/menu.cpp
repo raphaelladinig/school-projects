@@ -9,7 +9,7 @@ void Menu(void *pvParameters) {
     bool wasSuspended = false;
 
     while (true) {
-        pb->display.print("JULIAN");
+        pb->display.rectangle(5, 5, CRGB::Red, false);
 
         while (true) {
             if (pb->wasSuspended[0] == true) {
@@ -19,6 +19,6 @@ void Menu(void *pvParameters) {
             vTaskDelay(pdMS_TO_TICKS(10));
         }
 
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
