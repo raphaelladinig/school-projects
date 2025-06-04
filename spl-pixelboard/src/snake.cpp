@@ -1,5 +1,4 @@
 #include "snake.hpp"
-#include "HardwareSerial.h"
 #include "joystick.hpp"
 #include "pixelboard.hpp"
 #include <ctime>
@@ -67,7 +66,7 @@ void Snake(void *pvParameters) {
                 pb->wasSuspended[0] = false;
                 break;
             }
-
+            
             unsigned long now = millis();
             if (now - lastHueUpdate >= HUE_INTERVAL) {
                 lastHueUpdate = now;

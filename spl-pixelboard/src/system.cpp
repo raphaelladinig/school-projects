@@ -103,7 +103,7 @@ void System(void *pvParameters) {
 
             direction = NONE;
 
-            if (pb->joystick.wasPressed() || pb->mqttMessage == "enter") {
+            if (pb->joystick.wasPressed() || pb->mqttMessage == "ENTER") {
                 activeTask = x + y * 2;
                 Serial.print("[System] switch to task ");
                 Serial.println(activeTask);
@@ -112,7 +112,7 @@ void System(void *pvParameters) {
                 vTaskResume(tasks[activeTask]);
             }
         } else {
-            if (pb->joystick.wasPressed()) {
+            if (pb->joystick.wasPressed() || pb->mqttMessage == "ENTER") {
                 vTaskSuspend(tasks[activeTask]);
                 pb->wasSuspended[activeTask] = true;
                 pb->display.clear();
