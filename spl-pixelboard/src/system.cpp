@@ -37,7 +37,6 @@ void System(void *pvParameters) {
                 activeTask = (activeTask + 1) % tasks.size();
                 delay(100);
                 pb->display.clear();
-                Serial.print("clear");
                 vTaskResume(tasks[activeTask]);
             }
 

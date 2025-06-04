@@ -62,8 +62,6 @@ void Snake(void *pvParameters) {
         }
         pb->display.setLed(foodX, foodY, FOOD_COLOR);
 
-        pb->display.show();
-
         while (!gameOver) {
             if (pb->wasSuspended[1] == true) {
                 pb->wasSuspended[1] = false;
@@ -123,6 +121,8 @@ void Snake(void *pvParameters) {
                     previousDirection = RIGHT;
                     nextHeadX++;
                     break;
+                case NONE:
+                    break;
                 }
 
                 if (nextHeadX < 0) {
@@ -136,7 +136,6 @@ void Snake(void *pvParameters) {
                     nextHeadY = 0;
                 }
 
-                // Check collision with snake body
                 bool collision = false;
                 for (const auto &segment : snakeBody) {
                     if (segment.first == nextHeadX &&
@@ -177,8 +176,6 @@ void Snake(void *pvParameters) {
                 previousSnakeHeadX = snakeHeadX;
                 previousSnakeHeadY = snakeHeadY;
             }
-
-            pb->display.show();
 
             vTaskDelay(pdMS_TO_TICKS(10));
         }

@@ -1,3 +1,2 @@
-- task switchen bug
 - menu task (leon)
 - laufschrift
