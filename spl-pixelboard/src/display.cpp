@@ -41,14 +41,11 @@ int Display::getLed(int x, int y) {
     return res;
 }
 
-void Display::setLed(int x, int y, CRGB color, bool setShow) {
+void Display::setLed(int x, int y, CRGB color) {
     if (y < 8) {
         leds1[getLed(31 - x, 7 - y)] = color;
     } else {
         leds2[getLed(x, y - 8)] = color;
-    }
-    if (setShow) {
-        show();
     }
 }
 
@@ -68,7 +65,7 @@ void Display::print(String s, int y, int x) {
         for (int col = 0; col < 5; col++) {
             for (int row = 0; row < 7; row++) {
                 if (charData[col] & (1 << (6 - row))) {
-                    setLed(x + col, y + row, CRGB::White, false);
+                    setLed(x + col, y + row, CRGB::White);
                 }
             }
         }
@@ -78,8 +75,6 @@ void Display::print(String s, int y, int x) {
         if (x >= 32)
             break;
     }
-
-    show();
 }
 
 void Display::rectangle(int w, int h, CRGB color, bool fill, int x, int y) {
@@ -90,19 +85,17 @@ void Display::rectangle(int w, int h, CRGB color, bool fill, int x, int y) {
     if (fill) {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                setLed(x + i, y + j, color, false);
+                setLed(x + i, y + j, color);
             }
         }
     } else {
         for (int i = 0; i < w; i++) {
-            setLed(x + i, y, color, false);
-            setLed(x + i, y + h - 1, color, false);
+            setLed(x + i, y, color);
+            setLed(x + i, y + h - 1, color);
         }
         for (int j = 0; j < h; j++) {
-            setLed(x, y + j, color, false);
-            setLed(x + w - 1, y + j, color, false);
+            setLed(x, y + j, color);
+            setLed(x + w - 1, y + j, color);
         }
     }
-
-    show();
 }

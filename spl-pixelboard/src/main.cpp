@@ -1,6 +1,4 @@
 #include "HardwareSerial.h"
-#include "esp32-hal.h"
-#include "menu.hpp"
 #include "pixelboard.hpp"
 #include "snake.hpp"
 #include "system.hpp"
@@ -31,25 +29,20 @@ void setup() {
         JOYSTICK_Y_PIN, ssid, password, vector<TaskHandle_t>(), {false, false},
         mqtt_user, mqtt_password, mqtt_port, mqtt_host, DHT_PIN, DHT_TYPE);
 
-    TaskHandle_t MenuHandle = NULL;
     TaskHandle_t SnakeHandle = NULL;
-    TaskHandle_t systemHandle = NULL;
+    TaskHandle_t SystemHandle = NULL;
     vector<TaskHandle_t> tasks;
 
     Serial.println("[Setup] Creating tasks");
 
-    xTaskCreate(Menu, "Menu", 10000, pixelboard, 1, &MenuHandle);
-    vTaskSuspend(MenuHandle);
-    delay(10);
-
-    xTaskCreate(Snake, "Snake", 10000, pixelboard, 1, &SnakeHandle);
+    xTaskCreate(Snake, "Snake", 20000, pixelboard, 1, &SnakeHandle);
     vTaskSuspend(SnakeHandle);
     delay(10);
 
-    tasks = {MenuHandle, SnakeHandle};
+    tasks = {SnakeHandle};
     pixelboard->tasks = tasks;
 
-    xTaskCreate(System, "System", 10000, pixelboard, 1, &systemHandle);
+    xTaskCreate(System, "System", 20000, pixelboard, 1, &SystemHandle);
 
     pixelboard->display.clear();
 

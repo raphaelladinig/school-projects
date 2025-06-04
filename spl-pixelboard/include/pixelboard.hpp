@@ -3,6 +3,7 @@
 
 #include "dht_sensor.hpp"
 #include "display.hpp"
+#include "fl/str.h"
 #include "joystick.hpp"
 #include "mqtt.hpp"
 #include "ntp.hpp"
@@ -28,8 +29,9 @@ class PixelBoard {
     Weather weather;
     DhtSensor dht;
     vector<bool> wasSuspended;
-    void updateMqttDiretion();
+    void updateMqtt();
     Direction mqttDirection;
+    String mqttMessage;
     vector<TaskHandle_t> tasks;
 
   private:

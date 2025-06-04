@@ -14,7 +14,8 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
     : display(leds1_pin, leds2_pin),
       joystick(joystick_pin, joystickX_pin, joystickY_pin),
       wifi(ssid, password), tasks(tasks), wasSuspended(wasSuspended),
-      mqtt(mqtt_user, mqtt_password, mqtt_port, mqtt_host), dht(dht_pin, dht_type) {
+      mqtt(mqtt_user, mqtt_password, mqtt_port, mqtt_host),
+      dht(dht_pin, dht_type) {
     // wifi.begin();
     //
     // ntp.begin();
@@ -29,6 +30,7 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
 }
 
 Direction mqttDirectionTmp = NONE;
+String mqttMessageTmp = "";
 
 void onCallback(char *topic, byte *payload, unsigned int length) {
     Serial.printf("[Pixelboard] Message arrived [%s]: ", topic);
@@ -50,8 +52,12 @@ void onCallback(char *topic, byte *payload, unsigned int length) {
             mqttDirectionTmp = RIGHT;
         } else {
             mqttDirectionTmp = NONE;
+            mqttMessageTmp = message;
         }
     }
 }
 
-void PixelBoard::updateMqttDiretion() { mqttDirection = mqttDirectionTmp; }
+void PixelBoard::updateMqtt() {
+    mqttDirection = mqttDirectionTmp;
+    mqttMessage = mqttMessageTmp;
+}
