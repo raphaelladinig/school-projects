@@ -122,6 +122,9 @@ void System(void *pvParameters) {
                 Serial.println("[System] show menu");
             }
         }
+        
+        String data[][4] = {{"Weather: ", pb->weather.getWeather()}};
+        pb->spreadsheetWriter.sendData(data);
 
         vTaskDelay(pdMS_TO_TICKS(10));
     }
