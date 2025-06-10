@@ -1,3 +1,2 @@
-- laufschrift
-- info task
-- pong
+- spreadsheet fixen weil leon verkocht hat
+- laufschrift & info task

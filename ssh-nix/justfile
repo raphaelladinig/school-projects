@@ -5,4 +5,4 @@ install:
   nixos-anywhere --flake .#router -p 22220 --target-host nixos@localhost
 
 ssh:
-  ssh -p 22220 root@localhost
+  ssh -p 22220 root@localhost -i /home/raphael/.ssh/id_raphael
