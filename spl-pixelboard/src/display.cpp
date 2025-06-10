@@ -54,11 +54,6 @@ void Display::clear() { FastLED.clear(true); }
 void Display::show() { FastLED.show(); }
 
 void Display::print(String s, int y, int x) {
-    clear();
-
-    y = y;
-    x = x;
-
     for (int i = 0; i < s.length(); i++) {
         const uint8_t *charData = getCharData(s[i]);
 

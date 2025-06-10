@@ -1,2 +1,2 @@
-- spreadsheet fixen weil leon verkocht hat
-- laufschrift & info task
+- laufschrift fixen (info task)
+- spread sheet writer hangt immer den das pb auf wenn er lauft (jede min)

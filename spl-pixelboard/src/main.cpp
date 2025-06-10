@@ -1,8 +1,8 @@
 #include "HardwareSerial.h"
+#include "info.hpp"
 #include "pixelboard.hpp"
 #include "snake.hpp"
 #include "system.hpp"
-#include <Arduino.h>
 
 #define LEDS1_PIN 25
 #define LEDS2_PIN 26
@@ -70,6 +70,7 @@ void setup() {
         PROJECT_ID, CLIENT_EMAIL, PRIVATE_KEY, spreadsheetId);
 
     TaskHandle_t SnakeHandle = NULL;
+    TaskHandle_t InfoHandle = NULL;
     TaskHandle_t SystemHandle = NULL;
     vector<TaskHandle_t> tasks;
 
@@ -79,7 +80,11 @@ void setup() {
     vTaskSuspend(SnakeHandle);
     delay(10);
 
-    tasks = {SnakeHandle};
+    xTaskCreate(Info, "Info", 20000, pixelboard, 1, &InfoHandle);
+    vTaskSuspend(InfoHandle);
+    delay(10);
+
+    tasks = {SnakeHandle, InfoHandle};
     pixelboard->tasks = tasks;
 
     xTaskCreate(System, "System", 20000, pixelboard, 1, &SystemHandle);

@@ -1,6 +1,7 @@
 #ifndef SPREADSHEET_WRITER_HPP
 #define SPREADSHEET_WRITER_HPP
 
+#include <Arduino.h>
 #include <ESP_Google_Sheet_Client.h>
 
 class SpreadsheetWriter {
@@ -11,7 +12,7 @@ class SpreadsheetWriter {
     const char *spreadsheetId;
 
   public:
-    void sendData(String data[][4]);
+    void sendData(char *data[]);
     SpreadsheetWriter(const char *project_id, const char *client_email,
                       const char private_key[], const char spreadsheet_id[]);
 };
