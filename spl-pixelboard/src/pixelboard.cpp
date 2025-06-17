@@ -22,14 +22,9 @@ PixelBoard::PixelBoard(int leds1_pin, int leds2_pin, int joystick_pin,
     wifi.begin();
 
     ntp.begin();
-    ntp.printLocalTime();
 
     mqtt.connect(onCallback);
     mqtt.subscribe("snake/input_direction");
-
-    weather.printWeather();
-    dht.printTemperature();
-    dht.printHumidity();
 
     GSheet.begin(client_email, project_id, private_key);
 }

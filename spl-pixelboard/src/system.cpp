@@ -123,29 +123,6 @@ void System(void *pvParameters) {
             }
         }
 
-        static unsigned long lastUpdate = 0;
-        const unsigned long updateInterval = 60000;
-
-        if (millis() - lastUpdate > updateInterval) {
-            lastUpdate = millis();
-
-            String timeString =
-                String("Time: ") + String(pb->ntp.getCurrentTime());
-            String temperatureString = String("Temperature: ") +
-                                       String(pb->dht.getTemperature()) +
-                                       String(" °C");
-            String humidityString = String("Humidity: ") +
-                                    String(pb->dht.getHumidity()) +
-                                    String(" %");
-
-            static char *cells[4] = {
-                (char *)timeString.c_str(),
-                (char *)temperatureString.c_str(),
-                (char *)humidityString.c_str(),
-            };
-            pb->spreadsheetWriter.sendData(cells);
-        }
-
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

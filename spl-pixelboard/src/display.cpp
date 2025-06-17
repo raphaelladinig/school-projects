@@ -42,10 +42,12 @@ int Display::getLed(int x, int y) {
 }
 
 void Display::setLed(int x, int y, CRGB color) {
-    if (y < 8) {
-        leds1[getLed(31 - x, 7 - y)] = color;
-    } else {
-        leds2[getLed(x, y - 8)] = color;
+    if (x >= 0 && x < 32 && y >= 0 && y < 16) {
+        if (y < 8) {
+            leds1[getLed(31 - x, 7 - y)] = color;
+        } else {
+            leds2[getLed(x, y - 8)] = color;
+        }
     }
 }
 
